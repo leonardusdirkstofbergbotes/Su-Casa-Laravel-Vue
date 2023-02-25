@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->string('description')->nullable(false);
-            $table->string('image_path')->nullable(false);
+            $table->string('imagePath')->nullable(false);
             $table->string('price')->nullable(false);
             $table->boolean('active')->nullable(false);
-            $table->timestamp('active_until')->nullable()->nullable(false);
-            $table->time('daily_cutoff_time')->nullable()->nullable(false);
-            $table->integer('bulk_buy_discount')->nullable(false);
-            $table->integer('bulk_buy_portions')->nullable(false);
+            $table->timestamp('activeUntil')->nullable()->nullable(false);
+            $table->time('dailyCutoffTime')->nullable()->nullable(false);
+            $table->integer('bulkBuyDiscount')->nullable(false);
+            $table->integer('bulkBuyPortions')->nullable(false);
             $table->string('eta')->nullable(false);
             $table->boolean('promote')->nullable(false);
             $table->timestamps();

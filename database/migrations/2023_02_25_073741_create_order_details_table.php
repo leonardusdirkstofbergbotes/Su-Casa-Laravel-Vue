@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id')->nullable(false);
-            $table->integer('meal_id')->nullable(false);
+            $table->integer('orderId')->nullable(false);
+            $table->integer('mealId')->nullable(false);
             $table->integer('quantity')->nullable(false);
             $table->string('note')->nullable(true);
             $table->string('total')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('meal_id')->references('id')->on('meals');
+            $table->foreign('orderId')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('mealId')->references('id')->on('meals');
         });
     }
 

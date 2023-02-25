@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('reference_number')->nullable(false);
-            $table->integer('user_id')->nullable(false);
-            $table->timestamp('date_and_time')->nullable(false);
+            $table->string('referenceNumber')->nullable(false);
+            $table->integer('userId')->nullable(false);
+            $table->timestamp('dateAndTime')->nullable(false);
             $table->string('status')->nullable(false);
             $table->string('note')->nullable(true);
-            $table->string('grand_total')->nullable(false);
-            $table->string('collect_or_deliver')->nullable(false);
-            $table->string('collection_charge')->nullable(false);
+            $table->string('grandTotal')->nullable(false);
+            $table->string('collectOrDeliver')->nullable(false);
+            $table->string('collectionCharge')->nullable();
             $table->string('eta')->nullable(false);
-            $table->string('payment_status')->nullable(false);
+            $table->string('paymentStatus')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

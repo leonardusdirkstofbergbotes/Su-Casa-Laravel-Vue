@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('location', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable(false);
+            $table->integer('userId')->nullable(false);
             $table->string('address')->nullable(false);
-            $table->string('distance_from_owner')->nullable(false);
+            $table->string('distanceFromOwner')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

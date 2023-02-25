@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->string('description')->nullable(false);
-            $table->string('image_path')->nullable(false);
+            $table->string('imagePath')->nullable(false);
             $table->boolean('active')->nullable(false);
-            $table->timestamp('active_until')->nullable();
-            $table->time('daily_cutoff_time')->nullable();
+            $table->timestamp('activeUntil')->nullable();
+            $table->time('dailyCutoffTime')->nullable();
             $table->boolean('promote')->nullable(false);
             $table->timestamps();
         });

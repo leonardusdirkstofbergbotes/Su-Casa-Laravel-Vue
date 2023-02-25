@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('meal_categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('meal_id')->nullable(false);
-            $table->string('category_id')->nullable(false);
+            $table->integer('mealId')->nullable(false);
+            $table->string('categoryId')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('meal_id')->references('id')->on('meals')->onDelete('cascade');
+            $table->foreign('mealId')->references('id')->on('meals')->onDelete('cascade');
         });
     }
 
