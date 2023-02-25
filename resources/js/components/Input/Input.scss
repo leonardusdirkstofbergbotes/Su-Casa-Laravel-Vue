@@ -1,0 +1,38 @@
+@import 'resources/sass/variables';
+
+.form-input {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    label {
+        margin-bottom: 0.3rem;
+        padding-left: 0.1rem;
+    }
+
+    input {
+        padding: 0.3rem;
+        border-radius: $border-radius;
+        outline: none;
+        border: 1px solid $light-grey;
+        font-size: 1.2rem;
+
+        &:focus {
+            box-shadow: $shadow-medium;
+            border-color: $grey;
+            outline: 1px solid $primary;
+        }
+
+        &.error {
+            border-color: $error;
+        }
+    }
+
+    small {
+        color: $error;
+        position: absolute;
+        bottom: -1.1rem;
+        padding-left: 0.1rem;
+    }
+}

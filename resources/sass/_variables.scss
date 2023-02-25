@@ -5,3 +5,16 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+$border-radius: 0.3rem;
+
+// colors
+$light-grey: rgb(190, 190, 190);
+$grey: rgb(167, 167, 167);
+$dark-grey: rgb(137, 137, 137);
+$error: rgb(219, 69, 69);
+$primary: rgb(0, 136, 255);
+
+// shadows
+$shadow-small: 0px 1px 3px rgba(0,0,0,0.2);
+$shadow-medium: 0px 2px 5px rgba(0,0,0,0.2)

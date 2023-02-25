@@ -34,14 +34,24 @@ import {createApp} from 'vue'
 
 import App from '../pages/App.vue'
 import router from '../routes/routes'
-import ExampleComponent from './components/ExampleComponent.vue';
-import VueButton from './components/Button/Button.vue'
+import VueButton from './components/Button/Button.vue';
+import Input from './components/Input/Input.vue';
+
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+  components,
+  directives,
+})
+
 
 const app = createApp(App);
 app.use(router);
-
-app.component('example-component', ExampleComponent);
+app.use(vuetify);
 app.component('vue-button', VueButton);
-
-
+app.component('vue-input', Input);
 app.mount("#app");
