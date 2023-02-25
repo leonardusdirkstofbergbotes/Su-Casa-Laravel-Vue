@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('description')->nullable(false);
             $table->string('image_path')->nullable(false);
             $table->boolean('active')->nullable(false);
-            $table->timestamp('active_until')->nullable(false)->nullable()->nullable(false);
-            $table->time('daily_cutoff_time')->nullable(false)->nullable()->nullable(false);
+            $table->timestamp('active_until')->nullable();
+            $table->time('daily_cutoff_time')->nullable();
             $table->boolean('promote')->nullable(false);
             $table->timestamps();
         });

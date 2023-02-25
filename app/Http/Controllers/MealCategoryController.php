@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
 
-class CategoryController extends Controller
+class MealCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function getAll()
     {
-        return Category::all();
+        //
     }
 
     /**
@@ -20,7 +19,7 @@ class CategoryController extends Controller
      */
     public function get(string $id)
     {
-        return "get only $id category";
+        //
     }
 
     /**
