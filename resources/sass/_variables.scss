@@ -17,4 +17,8 @@ $primary: rgb(0, 136, 255);
 
 // shadows
 $shadow-small: 0px 1px 3px rgba(0,0,0,0.2);
-$shadow-medium: 0px 2px 5px rgba(0,0,0,0.2)
+$shadow-small-top: 0px -1px 3px rgba(0,0,0,0.2);
+
+$shadow-medium: 0px 2px 5px rgba(0,0,0,0.2);
+$shadow-medium-top: 0px -2px 5px rgba(0,0,0,0.2);
+

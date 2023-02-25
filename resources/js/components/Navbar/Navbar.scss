@@ -1,0 +1,41 @@
+@import 'resources/sass/variables';
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-shadow: $shadow-small-top;
+    -moz-box-shadow: $shadow-small-top;
+    box-shadow: $shadow-small-top;
+
+    & > div {
+        transition: border 0.15s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.1rem 0.7rem;
+        border-bottom: 3px solid transparent;
+
+        &.active {
+            border-bottom: 3px solid $primary;
+        }
+
+        small {
+            font-size: 0.6rem;
+            transition: color 0.15s ease-in-out;
+        }
+
+        i {
+            transition: scale 0.15s ease-in-out, color 0.15s ease-in-out;
+            color: $light-grey;
+        }
+
+        &:active, &:focus {
+            color: $primary;
+
+            i {
+                transform: scale(0.9);
+                color: $primary;
+            }
+        }
+    }
+}

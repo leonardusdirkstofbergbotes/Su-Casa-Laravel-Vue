@@ -34,8 +34,12 @@ import {createApp} from 'vue'
 
 import App from '../pages/App.vue'
 import router from '../routes/routes'
+
+// components
 import VueButton from './components/Button/Button.vue';
 import Input from './components/Input/Input.vue';
+import Default from './components/Layout/Default/Default.vue';
+import Navbar from './components/Navbar/Navbar.vue';
 
 // Vuetify
 import 'vuetify/styles'
@@ -47,7 +51,7 @@ import store from './store';
 
 const vuetify = createVuetify({
   components,
-  directives,
+  directives
 });
 
 const app = createApp(App);
@@ -56,4 +60,6 @@ app.use(vuetify);
 app.use(store);
 app.component('vue-button', VueButton);
 app.component('vue-input', Input);
+app.component('default-layout', Default);
+app.component('navbar', Navbar);
 app.mount("#app");
