@@ -14,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('/auth/register', 'App\Http\Controllers\AuthController@createUser');
+Route::post('/auth/login', 'App\Http\Controllers\AuthController@loginUser');
+Route::post('/auth/forgot-password', 'App\Http\Controllers\AuthController@forgotPassword');
+
 
 Route::prefix('categories')
     ->group(base_path('routes/categories.php'));
