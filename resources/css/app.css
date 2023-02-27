@@ -3,6 +3,19 @@ html, body {
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    background: linear-gradient(rgb(247, 242, 254), rgb(229, 221, 239), rgb(247, 242, 254));
+    height: 100vh;
+}
+
 body {
     padding: 1rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
 }

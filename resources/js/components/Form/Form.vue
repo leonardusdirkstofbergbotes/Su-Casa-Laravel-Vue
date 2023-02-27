@@ -1,10 +1,10 @@
 <template>
-    <div class="form">
+    <form class="form">
         <slot></slot>
         <div class="form-footer">
             <slot name="footer"></slot>
         </div>
-    </div>
+    </form>
   </template>
   <script src="./Form.ts" />
   <style lang="scss" src="./Form.scss" />

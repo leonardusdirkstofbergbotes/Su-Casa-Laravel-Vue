@@ -1,12 +1,8 @@
 <template>
-    <v-btn>I am a button</v-btn>
+    <v-btn color="primary">
+        <slot></slot>
+    </v-btn>
   </template>
-  <script>
-  export default {
-    name: "VueButton",
 
-    setup() {
-
-    }
-  }
-  </script>
+  <script scr="./Button.ts" />
+  <style lang="scss" scr="./Button.scss" />

@@ -9,12 +9,13 @@
     padding: 1rem;
     border-radius: $border-radius;
     margin: 1rem auto;
+    background-color: white;
 
     &-footer {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-top: 3rem;
         width: 100%;
-        border: 1px solid blue;
     }
 }

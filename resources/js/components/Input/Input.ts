@@ -14,8 +14,11 @@ export default {
         type: String,
         default: ""
     },
-    tooltipText: String
+    tooltipText: String,
+    modelValue: String
   },
+
+  emits: ['update:modelValue'],
 
   setup() { }
 }

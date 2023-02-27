@@ -18,14 +18,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/auth/register', 'App\Http\Controllers\AuthController@createUser');
-Route::post('/auth/login', 'App\Http\Controllers\AuthController@loginUser');
-Route::post('/auth/forgot-password', 'App\Http\Controllers\AuthController@forgotPassword');
-
+Route::prefix('auth')
+    ->group(base_path('routes/auth.php'));
 
 Route::prefix('categories')
     ->group(base_path('routes/categories.php'));
 
 Route::get('/test', function () {
-    return 'Hello World';
+    return response()->json([
+        'testing' => 'testing 123'
+    ]);
 });
