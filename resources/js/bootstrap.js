@@ -40,6 +40,7 @@ import VueButton from './components/Button/Button.vue';
 import Input from './components/Input/Input.vue';
 import Default from './components/Layout/Default/Default.vue';
 import Navbar from './components/Navbar/Navbar.vue';
+import Form from './components/Form/Form.vue';
 
 // Vuetify
 import 'vuetify/styles'
@@ -62,4 +63,6 @@ app.component('vue-button', VueButton);
 app.component('vue-input', Input);
 app.component('default-layout', Default);
 app.component('navbar', Navbar);
+app.component('vue-form', Form);
+
 app.mount("#app");

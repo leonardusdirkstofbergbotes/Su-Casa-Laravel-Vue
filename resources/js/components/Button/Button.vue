@@ -1,12 +1,12 @@
 <template>
-    <button>I am a button</button>
+    <v-btn>I am a button</v-btn>
   </template>
   <script>
   export default {
     name: "VueButton",
-  
+
     setup() {
-  
+
     }
   }
   </script>
