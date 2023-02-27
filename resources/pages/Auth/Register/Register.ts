@@ -12,15 +12,23 @@ export default {
 
         const validateForm = (): boolean => {
             let formattedErrors = [];
+            let isFormValid = true;
 
-            if (name.value == undefined || name.value == '') formattedErrors['name'] = 'Please enter a name';
-            if (email.value == undefined || email.value == '') formattedErrors['email'] = 'Please enter a email address';
-            if (password.value == undefined || password.value == '') formattedErrors['password'] = 'Please enter a password';
+            if (name.value == undefined || name.value == '') {
+                formattedErrors['name'] = 'Please enter a name';
+                isFormValid = false;
+            }
+            if (email.value == undefined || email.value == '') {
+                formattedErrors['email'] = 'Please enter a email address';
+                isFormValid = false;
+            }
+            if (password.value == undefined || password.value == '') {
+                formattedErrors['password'] = 'Please enter a password';
+                isFormValid = false;
+            }
 
-            console.log(formattedErrors.length, formattedErrors);
             errors.value = formattedErrors;
-            return formattedErrors.length == 0;
-
+            return isFormValid;
         };
 
         const register = () => {
@@ -34,7 +42,6 @@ export default {
                 axios.post('api/auth/register', data)
                     .then(response => {
                         errors.value = [];
-                        console.log(response);
                     })
                     .catch(error => {
                         if (error.response?.data?.message == "validation error") {

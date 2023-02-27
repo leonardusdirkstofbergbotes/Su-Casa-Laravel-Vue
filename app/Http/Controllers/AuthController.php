@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -20,7 +22,7 @@ class AuthController extends Controller
 
             if($validateUser->fails()){
                 return response()->json([
-                    'status' => false,
+                    'status' => true,
                     'message' => 'validation error',
                     'errors' => $validateUser->errors()
                 ], 401);
@@ -40,7 +42,7 @@ class AuthController extends Controller
 
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => false,
+                'status' => true,
                 'message' => $th->getMessage()
             ], 500);
         }
