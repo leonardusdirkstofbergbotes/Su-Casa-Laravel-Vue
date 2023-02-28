@@ -1,16 +1,16 @@
 <template>
   <h1>Login</h1>
   <vue-form>
-    <vue-input required>Email</vue-input>
+    <vue-input v-model="email" :error="errors.email" required>Email</vue-input>
     <div class="custom-input">
-        <vue-input required type="password">Password</vue-input>
-        <small>
+        <vue-input v-model="password" :error="errors.password" required type="password">Password</vue-input>
+        <span class="forgot-password">
             <router-link to="/forgot-password">Forgot Password?</router-link>
-        </small>
+        </span>
     </div>
 
     <template v-slot:footer>
-        <vue-button>Login</vue-button>
+        <vue-button v-on:click="login()">Login</vue-button>
         <small>
             <router-link to="/register">Dont have an account yet?</router-link>
         </small>

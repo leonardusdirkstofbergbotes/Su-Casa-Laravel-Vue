@@ -24,8 +24,12 @@ Route::prefix('auth')
 Route::prefix('categories')
     ->group(base_path('routes/categories.php'));
 
+
+
 Route::get('/test', function () {
     return response()->json([
         'testing' => 'testing 123'
     ]);
 });
+
+Route::get('/test/email', 'App\Http\Controllers\EmailController@sendTestEmail');
