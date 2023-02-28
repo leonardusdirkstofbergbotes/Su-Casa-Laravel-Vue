@@ -25,11 +25,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (!isAuthenticated()) {
-        if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') return next();
+        if (to.path == '/login' || to.path == '/register' || to.path == '/forgot-password') return next();
         return next('/login');
     }
 
-    if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') return next('/browse');
+    if (to.path == '/login' || to.path == '/register' || to.path == '/forgot-password') return next('/browse');
     return next();
 });
 
