@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: "Login",
 
   setup() {
 
+    const router = useRouter();
     const email = ref<string>();
     const password = ref<string>();
 
@@ -37,9 +39,9 @@ export default {
             };
 
             axios.post('api/auth/login', data)
-                .then(response => {
+                .then(() => {
                     errors.value = [];
-                    alert('successfull login');
+                    router.push('/browse');
                 })
                 .catch(error => {
                     if (error.response?.data?.message == "validation error") {

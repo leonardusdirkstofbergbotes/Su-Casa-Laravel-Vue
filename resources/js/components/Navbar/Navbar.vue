@@ -1,17 +1,17 @@
 <template>
     <nav>
-        <div>
+        <router-link to="/browse">
             <v-icon icon="mdi-home" size="x-large"></v-icon>
             <small>Home</small>
-        </div>
-        <div>
+        </router-link>
+        <router-link to="/food">
             <v-icon icon="mdi-food" size="x-large"></v-icon>
             <small>Food</small>
-        </div>
-        <div>
+        </router-link>
+        <router-link to="/cart">
             <v-icon icon="mdi-cart" size="x-large"></v-icon>
             <small>Cart</small>
-        </div>
+        </router-link>
         <div>
             <v-icon icon="mdi-menu" size="x-large"></v-icon>
             <small>Menu</small>

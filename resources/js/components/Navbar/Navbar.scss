@@ -6,8 +6,10 @@ nav {
     -webkit-box-shadow: $shadow-small-top;
     -moz-box-shadow: $shadow-small-top;
     box-shadow: $shadow-small-top;
+    background-color: white;
+    margin-left: -1rem; // this is to compensate for the 1rem padding on the body
 
-    & > div {
+    & > a, div {
         transition: border 0.15s ease-in-out;
         display: flex;
         flex-direction: column;
@@ -15,13 +17,10 @@ nav {
         padding: 0.1rem 0.7rem;
         border-bottom: 3px solid transparent;
 
-        &.active {
-            border-bottom: 3px solid $primary;
-        }
-
         small {
             font-size: 0.6rem;
             transition: color 0.15s ease-in-out;
+            color: $grey;
         }
 
         i {
@@ -36,6 +35,15 @@ nav {
                 transform: scale(0.9);
                 color: $primary;
             }
+        }
+    }
+
+    .active-link {
+        border-bottom: 3px solid rgb(0, 136, 255);
+        color: rgb(0, 136, 255);
+
+        & i, small {
+            color: rgb(0, 136, 255);
         }
     }
 }

@@ -1,9 +1,12 @@
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { ref } from 'vue';
 export default {
     name: "Register",
 
     setup() {
+        const router = useRouter();
+
         const name = ref<string>();
         const email = ref<string>();
         const password = ref<string>();
@@ -40,8 +43,9 @@ export default {
                 };
 
                 axios.post('api/auth/register', data)
-                    .then(response => {
+                    .then(() => {
                         errors.value = [];
+                        router.push('/browse');
                     })
                     .catch(error => {
                         if (error.response?.data?.message == "validation error") {
