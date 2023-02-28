@@ -56,9 +56,9 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+app.use(store);
 app.use(router);
 app.use(vuetify);
-app.use(store);
 app.component('vue-button', VueButton);
 app.component('vue-input', Input);
 app.component('default-layout', Default);

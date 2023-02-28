@@ -1,7 +1,7 @@
 <template>
     <default-layout>
         <div>
-            {{ test }}
+            <vue-button v-on:click="logout()">Logout</vue-button>
         </div>
     </default-layout>
 </template>

@@ -23,36 +23,18 @@ const router = createRouter({
     ],
 });
 
-const isAuthenticated = () => {
-    return false;
-}
-
 router.beforeEach((to, from, next) => {
-    console.log('before each logic');
-    if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') {
-        return next();
+    if (!isAuthenticated()) {
+        if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') return next();
+        return next('/login');
     }
 
-    if (isAuthenticated()) {
-        return next();
-    }
-    else {
-        return next('login');
-    }
-    // if (isAuthenticated()) {
-    //     return next();
-    // }
-    // else {
-    //     return next('/login')
-    // }
-    // if (to.path !== '/' && to.path !== '/register' && !isAuthenticated()) {
-    //     return next({path: '/'})
-    // }
-    // return next()
+    if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') return next('/browse');
+    return next();
 });
 
-// function isAuthenticated() {
-//     return Boolean(localStorage.getItem('APP_DEMO_USER_TOKEN'))
-// }
+const isAuthenticated = () => {
+    return !!localStorage.getItem("token");
+}
 
 export default router;
