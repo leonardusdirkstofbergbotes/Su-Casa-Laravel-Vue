@@ -23,12 +23,33 @@ const router = createRouter({
     ],
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.path !== '/' && to.path !== '/register' && !isAuthenticated()) {
-//         return next({path: '/'})
-//     }
-//     return next()
-// });
+const isAuthenticated = () => {
+    return false;
+}
+
+router.beforeEach((to, from, next) => {
+    console.log('before each logic');
+    if (to.path == '/login' || to.path == '/register' || to.path == 'forgot-password') {
+        return next();
+    }
+
+    if (isAuthenticated()) {
+        return next();
+    }
+    else {
+        return next('login');
+    }
+    // if (isAuthenticated()) {
+    //     return next();
+    // }
+    // else {
+    //     return next('/login')
+    // }
+    // if (to.path !== '/' && to.path !== '/register' && !isAuthenticated()) {
+    //     return next({path: '/'})
+    // }
+    // return next()
+});
 
 // function isAuthenticated() {
 //     return Boolean(localStorage.getItem('APP_DEMO_USER_TOKEN'))

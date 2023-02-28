@@ -35,10 +35,13 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
+            $token = Auth::login($user);
+
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $token,
+                'user' => $user
             ], 200);
 
         } catch (\Throwable $th) {
@@ -70,7 +73,11 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-            if(!Auth::attempt($request->only(['email', 'password']))){
+
+            $credentials = $request->only(['email', 'password']);
+            $token = Auth::attempt($credentials);
+
+            if(!$token){
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password does not match with our record.',
@@ -82,7 +89,8 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $token,
+                'user' => $user
             ], 200);
 
         } catch (\Throwable $th) {
@@ -129,5 +137,26 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully logged out',
+        ]);
+    }
+
+    public function refresh()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+            'authorisation' => [
+                'token' => Auth::refresh(),
+                'type' => 'bearer',
+            ]
+        ]);
     }
 }

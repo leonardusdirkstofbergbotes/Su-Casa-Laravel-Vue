@@ -43,8 +43,9 @@ export default {
                 };
 
                 axios.post('api/auth/register', data)
-                    .then(() => {
+                    .then((response) => {
                         errors.value = [];
+                        localStorage.setItem('token', response.data.token);
                         router.push('/browse');
                     })
                     .catch(error => {

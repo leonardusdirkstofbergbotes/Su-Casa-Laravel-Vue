@@ -6,8 +6,8 @@ export default {
   name: "Login",
 
   setup() {
-
     const router = useRouter();
+
     const email = ref<string>();
     const password = ref<string>();
 
@@ -39,8 +39,9 @@ export default {
             };
 
             axios.post('api/auth/login', data)
-                .then(() => {
+                .then((response) => {
                     errors.value = [];
+                    localStorage.setItem('token', response.data.token);
                     router.push('/browse');
                 })
                 .catch(error => {

@@ -39,11 +39,11 @@ nav {
     }
 
     .active-link {
-        border-bottom: 3px solid rgb(0, 136, 255);
-        color: rgb(0, 136, 255);
+        border-bottom: 3px solid $primary;
+        color: $primary;
 
         & i, small {
-            color: rgb(0, 136, 255);
+            color: $primary;
         }
     }
 }
