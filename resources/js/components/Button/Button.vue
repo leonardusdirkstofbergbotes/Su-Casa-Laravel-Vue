@@ -5,4 +5,4 @@
   </template>
 
   <script scr="./Button.ts" />
-  <style lang="scss" scr="./Button.scss" />
+  <style lang="scss" src="./Button.scss" />

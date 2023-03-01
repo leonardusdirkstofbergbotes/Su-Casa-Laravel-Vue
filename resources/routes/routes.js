@@ -19,6 +19,10 @@ const router = createRouter({
         {
             path: '/browse',
             component: () => import('../pages/Browse/Browse.vue')
+        },
+        {
+            path: '/admin/categories',
+            component: () => import('../pages/Admin/Categories/Categories.vue')
         }
     ],
 });

@@ -41,6 +41,7 @@ import Input from './components/Input/Input.vue';
 import Default from './components/Layout/Default/Default.vue';
 import Navbar from './components/Navbar/Navbar.vue';
 import Form from './components/Form/Form.vue';
+import Modal from './components/Modal/Modal.vue';
 
 // Vuetify
 import 'vuetify/styles'
@@ -64,5 +65,6 @@ app.component('vue-input', Input);
 app.component('default-layout', Default);
 app.component('navbar', Navbar);
 app.component('vue-form', Form);
+app.component('modal', Modal);
 
 app.mount("#app");
