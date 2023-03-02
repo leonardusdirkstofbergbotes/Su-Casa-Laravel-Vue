@@ -5,6 +5,7 @@
     justify-content: center;
     font-size: 8rem;
     color: $grey;
+    position: relative;
 
     .preview-image {
         height: 10rem;
@@ -14,6 +15,13 @@
         background-position: center center;
         margin: 1rem;
     }
+}
+
+small {
+    color: $error;
+    position: absolute;
+    font-size: 0.7rem;
+    bottom: 0;
 }
 
 img {

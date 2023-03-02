@@ -8,6 +8,7 @@
                 :style="{ 'background-image': `url(${previewUrl})` }"
                 @click="$refs.fileInput.click()">
             </div>
+            <small class="error-message" v-if="error != ''">{{error}}</small>
         </div>
 
         <input ref="fileInput" @input="pickFile($event.target.files)" type="file" />

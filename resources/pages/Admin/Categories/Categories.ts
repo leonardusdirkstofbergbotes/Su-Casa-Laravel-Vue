@@ -44,7 +44,39 @@ export default {
         };
 
         const save = () => {
+            if (validateForm()) {
+                alert('form valid');
+            }
+        };
 
+        const validateForm = (): boolean => {
+            let formattedErrors = [];
+            let isFormValid = true;
+
+            if (name.value == undefined || name.value == '') {
+                formattedErrors['name'] = 'Please enter a name';
+                isFormValid = false;
+            }
+            if (description.value == undefined || description.value == '') {
+                formattedErrors['description'] = 'Please enter a description';
+                isFormValid = false;
+            }
+            if (image.value == undefined || image.value == null) {
+                formattedErrors['image'] = 'Please add a image for this category';
+                isFormValid = false;
+            }
+            if (activeUntil.value != undefined && activeUntil.value != null) {
+                const todaysDate = new Date();
+                const isDateInPast = new Date(activeUntil.value) < todaysDate;
+
+                if (isDateInPast) {
+                    formattedErrors['activeUntil'] = 'This date cannot be in the past';
+                    isFormValid = false;
+                }
+            }
+
+            errors.value = formattedErrors;
+            return isFormValid;
         };
 
         watch(promote, (shouldPromote: boolean) => {
