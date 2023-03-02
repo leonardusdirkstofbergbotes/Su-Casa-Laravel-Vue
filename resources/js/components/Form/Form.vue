@@ -7,5 +7,5 @@
     </form>
   </template>
   <script src="./Form.ts" />
-  <style lang="scss" src="./Form.scss" />
+  <style lang="scss" scoped src="./Form.scss" />
 

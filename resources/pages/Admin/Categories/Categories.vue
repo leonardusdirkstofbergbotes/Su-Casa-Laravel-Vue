@@ -2,13 +2,18 @@
     <h1>Categories</h1>
     <vue-button v-on:click="openCreateForm()">Create new</vue-button>
     <modal ref="categoryForm" title="Create new category">
-            <div>
+            <div class="form">
                 <vue-input v-model="name" required>Name</vue-input>
                 <vue-input v-model="description" required>Description</vue-input>
-                <vue-input v-model="active" required>Active</vue-input>
-                <vue-input v-model="activeUntil" required>Activce until</vue-input>
-                <vue-input v-model="dailyCutoffTime" required>Daily cutoff</vue-input>
-                <vue-input v-model="promote" required>Promote</vue-input>
+                <div class="dual-inputs">
+                    <toggle v-model="active" required>Active</toggle>
+                    <input-date v-model="activeUntil" :disabled="!active">Activce until</input-date>
+
+                </div>
+                <div class="dual-inputs">
+                    <toggle v-model="promote" required>Promote</toggle>
+                    <input-time v-model="dailyCutoffTime">Daily cutoff</input-time>
+                </div>
             </div>
 
             <template v-slot:footer>

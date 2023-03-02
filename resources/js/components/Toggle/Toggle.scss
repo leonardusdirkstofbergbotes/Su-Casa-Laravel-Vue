@@ -1,0 +1,53 @@
+@import 'resources/sass/variables';
+
+.toggle {
+    position: relative;
+    cursor: pointer;
+    width: fit-content;
+
+    .slider {
+        transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        width: 3.5rem;
+        height: 2rem;
+        border-radius: 2rem;
+        background-color: $grey;
+        display: flex;
+        align-items: center;
+        padding: 0.3rem;
+        border: 1px solid transparent;
+
+        .switch {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease-in-out;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 100%;
+            background-color: white;
+            transform: translateX(0);
+
+            i {
+                color: $grey;
+            }
+        }
+
+        &.active {
+            border: 1px solid $primary;
+            background-color: white;
+
+            .switch {
+                transform: translateX(1.4rem);
+                background-color: $primary;
+
+                i {
+                    color: white;
+                }
+            }
+        }
+
+
+    }
+
+
+}

@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    .dual-inputs {
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+    }
+}
+
+

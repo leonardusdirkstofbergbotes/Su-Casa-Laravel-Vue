@@ -1,5 +1,5 @@
 import { useStore } from 'vuex';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Category from '../../../js/models/Category';
 
 export default {
@@ -9,12 +9,12 @@ export default {
         const store = useStore();
         const categories = ref<Category[]>([]);
 
-        const name = ref<string>('');
-        const description = ref<string>('');
-        const active = ref<string>(''); // TODO: this should be boolean that is linked to a toggle switch
-        const activeUntil = ref<string>('');
-        const dailyCutoffTime = ref<string>('');
-        const promote = ref<string>(''); // TODO: this should be boolean that is linked to a toggle switch
+        const name = ref<string>();
+        const description = ref<string>();
+        const active = ref<boolean>(false);
+        const activeUntil = ref<string>();
+        const dailyCutoffTime = ref<string>();
+        const promote = ref<boolean>(false);
         const image = ref<File | null>();
 
         const errors = ref<any[]>([]);
@@ -36,12 +36,20 @@ export default {
         const resetForm = () => {
             name.value = '';
             description.value = '';
-            active.value = '';
+            active.value = false;
             activeUntil.value = '';
             dailyCutoffTime.value = '';
-            promote.value = '';
+            promote.value = false;
             image.value = null;
         };
+
+        watch(promote, (shouldPromote: boolean) => {
+            if (!shouldPromote) dailyCutoffTime.value = '';
+        });
+
+        watch(active, (shouldActivate: boolean) => {
+            if (!shouldActivate) activeUntil.value = '';
+        });
 
         return {
             categories,

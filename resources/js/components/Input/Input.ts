@@ -14,6 +14,10 @@ export default {
         type: String,
         default: ""
     },
+    disabled: {
+        type: Boolean,
+        default: false
+    },
     tooltipText: String,
     modelValue: String
   },
