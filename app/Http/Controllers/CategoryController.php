@@ -36,18 +36,37 @@ class CategoryController extends Controller
     {
         $categoryModel = new Category();
         $modelRules = $categoryModel->rules;
-        $validator = Validator::make($request->all(), $modelRules);
+        $formInputs = json_decode($request->formData, true);
+        $validator = Validator::make($formInputs, $modelRules);
 
         if ($validator->fails()) {
             return response()->json(["message" => $validator->errors()->all()], 400);
         }
         else {
+
             try {
-                $newCategory = Category::create($request->toArray());
-                return response()->json($newCategory, 200);
+                $fileName = $request->image->getClientOriginalName();
+                $request->image->move(public_path('images'), $fileName);
+                $path = "images\\$fileName";
+
+                $dataToSave = [
+                    ...$formInputs,
+                    'imagePath' => $path
+                ];
+
+                try {
+                    $newCategory = Category::create($dataToSave);
+                    return response()->json($newCategory, 200);
+                }
+                catch(\Exception $e) {
+                    return response()->json(['message' => $e->getMessage()], 400);
+                }
             }
-            catch(\Exception $e) {
-                return response()->json(['message' => $e->getMessage()], 400);
+            catch (\Throwable $th) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Could not store the image'
+                ], 400);
             }
         }
     }

@@ -16,7 +16,6 @@ class Category extends Model
     public $rules = [
         'name' => 'required|unique:categories|max:255|string',
         'description' => 'required|max:1000|string',
-        'imagePath' => 'required|max:1000|string',
         'active' => 'required|boolean',
         'promote' => 'required|boolean'
     ];

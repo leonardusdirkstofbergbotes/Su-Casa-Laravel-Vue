@@ -1,6 +1,8 @@
 import { useStore } from 'vuex';
 import { ref, watch } from 'vue';
 import Category from '../../../js/models/Category';
+import { request } from '../../../js/helper';
+import axios from 'axios';
 
 export default {
     name: "Categories",
@@ -9,13 +11,13 @@ export default {
         const store = useStore();
         const categories = ref<Category[]>([]);
 
-        const name = ref<string>('');
-        const description = ref<string>('');
+        const name = ref<string | null>(null);
+        const description = ref<string | null>(null);
         const active = ref<boolean>(false);
-        const activeUntil = ref<string>('');
-        const dailyCutoffTime = ref<string>('');
+        const activeUntil = ref<string | null>(null);
+        const dailyCutoffTime = ref<string | null>(null);
         const promote = ref<boolean>(false);
-        const image = ref<File | null>();
+        const image = ref<File | null>(null);
 
         const errors = ref<any[]>([]);
         const categoryForm = ref();
@@ -34,18 +36,33 @@ export default {
         };
 
         const resetForm = () => {
-            name.value = '';
-            description.value = '';
+            name.value = null;
+            description.value = null;
             active.value = false;
-            activeUntil.value = '';
-            dailyCutoffTime.value = '';
+            activeUntil.value = null;
+            dailyCutoffTime.value = null;
             promote.value = false;
             image.value = null;
         };
 
         const save = () => {
             if (validateForm()) {
-                alert('form valid');
+                const data = {
+                    name: name.value,
+                    description: description.value,
+                    active: active.value,
+                    activeUntil: activeUntil.value,
+                    dailyCutoffTime: dailyCutoffTime.value,
+                    promote: promote.value
+                };
+
+                const formData = new FormData();
+                formData.append('image', image.value as Blob);
+                formData.append('formData', JSON.stringify(data));
+
+                request('post', '/api/categories/create', formData, {
+                    'Content-Type': 'multipart/form-data'
+                });
             }
         };
 

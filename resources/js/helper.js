@@ -1,26 +1,27 @@
 import axios from "axios";
 
-export const request = async (method, url, data) => {
-    const token = localStorage.getItem('APP_DEMO_USER_TOKEN')
+export const request = async (method, url, data, headers) => {
+    const token = localStorage.getItem('token')
     if (token !== undefined || token !== "") {
-        const headers = {
+        const config = {
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: 'Bearer ' + token,
+                ...headers
             }
         }
         let response = null;
         switch (method) {
             case 'get':
-                response = await axios.get(url, headers)
+                response = await axios.get(url, config)
                 break;
             case 'post':
-                response = await axios.post(url, data, headers)
+                response = await axios.post(url, data, config)
                 break;
             case 'put':
-                response = await axios.put(url, data, headers)
+                response = await axios.put(url, data, config)
                 break;
             case 'delete':
-                response = await axios.delete(url, headers)
+                response = await axios.delete(url, config)
                 break;
             default:
                 break;
