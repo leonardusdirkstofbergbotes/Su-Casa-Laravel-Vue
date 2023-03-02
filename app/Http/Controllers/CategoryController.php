@@ -40,7 +40,11 @@ class CategoryController extends Controller
         $validator = Validator::make($formInputs, $modelRules);
 
         if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()->all()], 400);
+            return response()->json([
+                "status" => false,
+                "type" => "validation error",
+                "errors" => $validator->errors()->all()
+            ], 400);
         }
         else {
 
@@ -56,16 +60,25 @@ class CategoryController extends Controller
 
                 try {
                     $newCategory = Category::create($dataToSave);
-                    return response()->json($newCategory, 200);
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'success',
+                        'category' => $newCategory,
+                    ], 200);
                 }
                 catch(\Exception $e) {
-                    return response()->json(['message' => $e->getMessage()], 400);
+                    return response()->json([
+                        'status' => false,
+                        'type' => 'mysql error',
+                        'error' => $e->getMessage()
+                    ], 400);
                 }
             }
             catch (\Throwable $th) {
                 return response()->json([
                     'status' => true,
-                    'message' => 'Could not store the image'
+                    'type' => 'file storage error',
+                    'error' => 'Could not store the image'
                 ], 400);
             }
         }

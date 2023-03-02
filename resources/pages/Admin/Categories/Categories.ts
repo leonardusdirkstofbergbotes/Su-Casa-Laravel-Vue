@@ -28,6 +28,7 @@ export default {
 
         const closeForm = () => {
             categoryForm.value.show = false;
+            resetForm();
         };
 
         const openCreateForm = () => {
@@ -62,6 +63,26 @@ export default {
 
                 request('post', '/api/categories/create', formData, {
                     'Content-Type': 'multipart/form-data'
+                }).then((response: any) => {
+                    if (response.data.message == 'success') {
+                        categories.value.push(response.data.category);
+                        closeForm();
+                    }
+                }).catch(error => {
+                    if (error.response?.data?.type) {
+                        if (error.response.data.type == "validation error") {
+                            let formattedErrors = [];
+
+                            for (const key in error.response.data.errors) {
+                                formattedErrors[key] = error.response.data.errors[key][0];
+                            }
+
+                           errors.value = formattedErrors;
+                        }
+                        else {
+                            alert(error.response.data.error);
+                        }
+                    }
                 });
             }
         };

@@ -24,30 +24,40 @@ class AuthController extends Controller
             if($validateUser->fails()){
                 return response()->json([
                     'status' => true,
-                    'message' => 'validation error',
+                    'type' => 'validation error',
                     'errors' => $validateUser->errors()
                 ], 401);
             }
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
+            try {
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password)
+                ]);
 
-            $token = Auth::login($user);
+                $token = Auth::login($user);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $token,
-                'user' => $user
-            ], 200);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'success',
+                    'token' => $token,
+                    'user' => $user
+                ], 200);
+            }
+            catch (\Throwable $th) {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'mysql error',
+                    'error' => $th->getMessage()
+                ], 400);
+            }
 
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => true,
-                'message' => $th->getMessage()
+                'type' => 'create error',
+                'error' => $th->getMessage()
             ], 500);
         }
     }
@@ -69,7 +79,7 @@ class AuthController extends Controller
             if($validateUser->fails()){
                 return response()->json([
                     'status' => false,
-                    'message' => 'validation error',
+                    'type' => 'validation error',
                     'errors' => $validateUser->errors()
                 ], 401);
             }
@@ -80,7 +90,8 @@ class AuthController extends Controller
             if(!$token){
                 return response()->json([
                     'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
+                    'type' => 'auth error',
+                    'error' => 'Email & Password does not match with our record.',
                 ], 401);
             }
 
@@ -96,7 +107,8 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => $th->getMessage()
+                'type' => 'auth error',
+                'error' => $th->getMessage()
             ], 500);
         }
     }
