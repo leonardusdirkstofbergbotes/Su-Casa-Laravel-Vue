@@ -18,6 +18,10 @@ export default {
         type: Boolean,
         default: false
     },
+    rows: {
+        type: String,
+        default: "2"
+    },
     tooltipText: String,
     modelValue: String
   },

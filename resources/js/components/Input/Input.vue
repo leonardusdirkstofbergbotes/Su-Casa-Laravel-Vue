@@ -5,7 +5,8 @@
             <span class="indicator-required" v-if="required">*</span>
             <small class="indicator-optional" v-else>(optional)</small>
         </label>
-        <input v-bind:disabled="disabled" v-bind:type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+        <textarea v-if="type == 'textarea'" v-bind:rows="rows"></textarea>
+        <input v-else v-bind:disabled="disabled" v-bind:type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
         <small class="error-message" v-if="error != ''">{{error}}</small>
     </div>
   </template>

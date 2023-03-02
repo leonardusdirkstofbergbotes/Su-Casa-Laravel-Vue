@@ -4,11 +4,10 @@
     <modal ref="categoryForm" title="Create new category">
             <div class="form">
                 <vue-input v-model="name" required>Name</vue-input>
-                <vue-input v-model="description" required>Description</vue-input>
+                <vue-input type="textarea" rows="4" v-model="description" required>Description</vue-input>
                 <div class="dual-inputs">
                     <toggle v-model="active" required>Active</toggle>
                     <input-date v-model="activeUntil" :disabled="!active">Activce until</input-date>
-
                 </div>
                 <div class="dual-inputs">
                     <toggle v-model="promote" required>Promote</toggle>

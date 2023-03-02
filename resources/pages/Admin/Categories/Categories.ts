@@ -9,11 +9,11 @@ export default {
         const store = useStore();
         const categories = ref<Category[]>([]);
 
-        const name = ref<string>();
-        const description = ref<string>();
+        const name = ref<string>('');
+        const description = ref<string>('');
         const active = ref<boolean>(false);
-        const activeUntil = ref<string>();
-        const dailyCutoffTime = ref<string>();
+        const activeUntil = ref<string>('');
+        const dailyCutoffTime = ref<string>('');
         const promote = ref<boolean>(false);
         const image = ref<File | null>();
 
