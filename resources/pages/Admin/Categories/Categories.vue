@@ -3,6 +3,7 @@
     <vue-button v-on:click="openCreateForm()">Create new</vue-button>
     <modal ref="categoryForm" title="Create new category">
             <div class="form">
+                <input-file v-model="image"></input-file>
                 <vue-input v-model="name" required>Name</vue-input>
                 <vue-input type="textarea" rows="4" v-model="description" required>Description</vue-input>
                 <div class="dual-inputs">
@@ -16,7 +17,7 @@
             </div>
 
             <template v-slot:footer>
-                <vue-button v-on:click="register()">Save</vue-button>
+                <vue-button v-on:click="save()">Save</vue-button>
                 <small v-on:click="closeForm()">Cancel</small>
         </template>
     </modal>

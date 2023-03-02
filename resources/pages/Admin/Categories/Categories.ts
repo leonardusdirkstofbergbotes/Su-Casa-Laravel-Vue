@@ -43,6 +43,10 @@ export default {
             image.value = null;
         };
 
+        const save = () => {
+
+        };
+
         watch(promote, (shouldPromote: boolean) => {
             if (!shouldPromote) dailyCutoffTime.value = '';
         });
@@ -63,7 +67,8 @@ export default {
             errors,
             categoryForm,
             openCreateForm,
-            closeForm
+            closeForm,
+            save
         }
     }
 }
