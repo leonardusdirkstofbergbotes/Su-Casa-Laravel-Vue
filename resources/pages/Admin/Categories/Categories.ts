@@ -1,15 +1,13 @@
 import { useStore } from 'vuex';
-import { ref, watch } from 'vue';
+import { computed, ref, watch, onMounted } from 'vue';
 import Category from '../../../js/models/Category';
 import { request } from '../../../js/helper';
-import axios from 'axios';
 
 export default {
     name: "Categories",
 
     setup() {
         const store = useStore();
-        const categories = ref<Category[]>([]);
 
         const name = ref<string | null>(null);
         const description = ref<string | null>(null);
@@ -21,6 +19,10 @@ export default {
 
         const errors = ref<any[]>([]);
         const categoryForm = ref();
+
+        const categories = computed(() => {
+            return store.getters['getCategories'];
+        })
 
         const openForm = () => {
             categoryForm.value.show = true;
@@ -123,6 +125,14 @@ export default {
 
         watch(active, (shouldActivate: boolean) => {
             if (!shouldActivate) activeUntil.value = '';
+        });
+
+        const fetchCategories = async () => {
+            return store.dispatch('fetchCategories');
+        }
+
+        onMounted(() => {
+            fetchCategories();
         });
 
         return {

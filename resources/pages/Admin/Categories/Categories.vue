@@ -21,7 +21,7 @@
                 <small v-on:click="closeForm()">Cancel</small>
         </template>
     </modal>
-    <!-- <v-table>
+    <v-table>
         <thead>
             <tr>
                 <th class="text-left">Name</th>
@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="category in categories" :key="category.id">
+            <tr v-for="category in categories.data" :key="category.id">
                 <td>{{ category.name }}</td>
                 <td>{{ category.description }}</td>
                 <td>{{ category.description }}</td>
@@ -48,7 +48,7 @@
                 </td>
             </tr>
         </tbody>
-    </v-table> -->
+    </v-table>
 </template>
 
 <script src="./Categories.ts" />
