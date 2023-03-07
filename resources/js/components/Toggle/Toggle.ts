@@ -10,7 +10,7 @@ export default {
             type: String,
             default: ""
         },
-        modelValue: Boolean
+        modelValue: [Boolean, Number]
       },
 
       emits: ['update:modelValue'],

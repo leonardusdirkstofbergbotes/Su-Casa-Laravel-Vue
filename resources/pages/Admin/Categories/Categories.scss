@@ -16,12 +16,14 @@
     display: grid;
     grid-template-columns: 48% 48%;
     gap: 1rem;
+    grid-row-gap: 2rem;
     margin-top: 2rem;
 
     .category {
         border-radius: $border-radius;
         background-color: white;
         border: 1px solid $light-grey;
+        position: relative;
 
         img {
             width: 100%;
@@ -44,6 +46,22 @@
         div:first-of-type {
             padding: 0 0.5rem;
             padding-bottom: 0.5rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid $light-grey;
+            padding: 0.5rem;
+
+            span {
+                color: $primary;
+            }
+
+            .delete {
+                color: $error;
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ export const categoriesModule = {
     },
     mutations: {
         setCategories(state, categories: Category[]) {
-            console.log(categories);
             state.categories = categories;
         },
         addCategory (state, category: Category) {
@@ -52,11 +51,12 @@ export const categoriesModule = {
         }
     },
     getters: {
-        getUserDetails(state) {
-            return state.userDetails;
-        },
         getCategories (state) {
-            return state.categories;
+            return state.categories.sort((a, b) => {
+                if (a.name < b.name) return -1
+                if (a.name > b.name) return 1;
+                return 0;
+            });
         }
     }
 }

@@ -93,9 +93,11 @@ class CategoryController extends Controller
         $formInputs = array_filter(json_decode($request->formData, true));
 
         $categoryModel = new Category();
-        $modelRules = $categoryModel->rules;
+        $modelRules = $categoryModel->editRules();
         $applicableRules = [];
         foreach($modelRules as $column => $rule) {
+            if ($column == 'name') $rule = 'required|max:255|string';
+
             if (array_key_exists($column, $formInputs)) {
                 $applicableRules[$column] = $rule;
             }

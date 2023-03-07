@@ -19,4 +19,11 @@ class Category extends Model
         'active' => 'required|boolean',
         'promote' => 'required|boolean'
     ];
+
+    public function editRules () {
+        return [
+            ...$this->rules,
+            'name' => 'required|max:255|string',
+        ];
+    }
 }
