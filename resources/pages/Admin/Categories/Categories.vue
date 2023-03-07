@@ -24,7 +24,7 @@
     </modal>
     <div class="categories">
         <div class="category"
-            v-for="category in categories.data"
+            v-for="category in categories"
             :key="category.id"
             @click="editCategory(category)"
         >

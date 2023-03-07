@@ -17,18 +17,11 @@ const store = createStore({
             state.userDetails = userDetails;
         },
         setCategories(state, categories: Category[]) {
+            console.log(categories);
             state.categories = categories;
         },
         addCategory (state, category: Category) {
             state.categories.push(category);
-        },
-        updateCategory (state, updatedCategory: Category) {
-            const updatedCategoryRemoved = state.categories.filter((category: Category) => {
-                return category.id.toString() != updatedCategory.id.toString();
-            });
-
-            updatedCategoryRemoved.push(updatedCategory);
-            state.categories = updatedCategoryRemoved;
         },
         removeCategory (state, id: string) {
             state.categories = state.categories.filter((category: Category) => {
@@ -39,11 +32,21 @@ const store = createStore({
     actions: {
         fetchCategories ({commit}) {
             request('get', '/api/categories')
-                .then(data => {
-                    commit('setCategories', data);
+                .then(response => {
+                    commit('setCategories', response.data);
                 }).catch(error => {
                     commit('setCategories', []);;
                 });
+        },
+
+        updateCategory ({state, commit}, updatedCategory: Category) {
+            const updatedCategoryRemoved = state.categories.filter((category: Category) => {
+                return category.id.toString() != updatedCategory.id.toString();
+            });
+
+            updatedCategoryRemoved.push(updatedCategory);
+
+            commit('setCategories', updatedCategoryRemoved);
         },
 
         deleteCategory ({commit}, id: string) {
@@ -61,6 +64,7 @@ const store = createStore({
             return state.userDetails;
         },
         getCategories (state) {
+            console.log(store.getters);
             return state.categories;
         }
     }

@@ -107,13 +107,13 @@ export default {
                 request('post', `/api/categories/update/${tempCategoryId.value}`, formData)
                     .then((response: any) => {
                         if (response.data.message == 'success') {
-                            store.commit('updateCategory', response.data.category);
+                            store.dispatch('updateCategory', response.data.category);
                             closeForm();
                         }
                     })
                     .catch(error => {
                         console.log(error);
-                    })
+                    });
             }
         };
 
