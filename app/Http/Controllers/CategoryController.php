@@ -51,8 +51,8 @@ class CategoryController extends Controller
 
             try {
                 $fileName = $request->image->getClientOriginalName();
-                $request->image->move(public_path('images'), $fileName);
-                $path = "\\images\\$fileName";
+                $request->image->move(public_path('images/categories'), $fileName);
+                $path = "\\images\\categories\\$fileName";
 
                 $dataToSave = [
                     ...$formInputs,
@@ -121,11 +121,11 @@ class CategoryController extends Controller
 
                 try {
                     $fileName = $request->image->getClientOriginalName();
-                    $path = "\\images\\$fileName";
+                    $path = "\\images\\categories\\$fileName";
 
                     if ($path != $category->imagePath)
                     {
-                        $request->image->move(public_path('images'), $fileName);
+                        $request->image->move(public_path('images\\categories'), $fileName);
                         $dataToSave['imagePath'] = $path;
                         File::delete(public_path($category->imagePath));
                     }
