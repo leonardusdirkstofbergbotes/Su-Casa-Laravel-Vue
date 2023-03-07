@@ -51,7 +51,7 @@ class CategoryController extends Controller
             try {
                 $fileName = $request->image->getClientOriginalName();
                 $request->image->move(public_path('images'), $fileName);
-                $path = "images\\$fileName";
+                $path = "\\images\\$fileName";
 
                 $dataToSave = [
                     ...$formInputs,
@@ -74,11 +74,11 @@ class CategoryController extends Controller
                     ], 400);
                 }
             }
-            catch (\Throwable $th) {
+            catch (\Exception $e) {
                 return response()->json([
                     'status' => true,
                     'type' => 'file storage error',
-                    'error' => 'Could not store the image'
+                    'error' => $e->getMessage()
                 ], 400);
             }
         }

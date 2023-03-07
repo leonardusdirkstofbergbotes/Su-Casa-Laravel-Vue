@@ -21,34 +21,15 @@
                 <small v-on:click="closeForm()">Cancel</small>
         </template>
     </modal>
-    <v-table>
-        <thead>
-            <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Description</th>
-                <th class="text-left">imagePath</th>
-                <th class="text-left">active</th>
-                <th class="text-left">activeUntil</th>
-                <th class="text-left">dailyCutoffTime</th>
-                <th class="text-left">promote</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="category in categories.data" :key="category.id">
-                <td>{{ category.name }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.description }}</td>
-            </tr>
-            <tr v-if="categories.length == 0">
-                <td colspan="100%">
-                    No results found
-                </td>
-            </tr>
-        </tbody>
-    </v-table>
+    <div class="categories">
+        <div class="category" v-for="category in categories.data" :key="category.id">
+            <img :src="category.imagePath" />
+            <div>
+                <h4>{{ category.name }}</h4>
+                <small>{{ category.description + 'fksldfjls djflsdjfl jslfj lksdjfl sdjlfj lskdjflksdjfkl jd fdsfsdf sdf sdf' }}</small>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script src="./Categories.ts" />

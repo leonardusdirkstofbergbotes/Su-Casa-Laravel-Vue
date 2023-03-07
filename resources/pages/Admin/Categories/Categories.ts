@@ -1,6 +1,5 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
-import Category from '../../../js/models/Category';
 import { request } from '../../../js/helper';
 
 export default {
