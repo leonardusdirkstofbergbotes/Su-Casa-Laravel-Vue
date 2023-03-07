@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
+    public $defaultSavingPath = 'images\\categories';
+
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -51,8 +53,8 @@ class CategoryController extends Controller
 
             try {
                 $fileName = $request->image->getClientOriginalName();
-                $request->image->move(public_path('images/categories'), $fileName);
-                $path = "\\images\\categories\\$fileName";
+                $request->image->move(public_path($this->defaultSavingPath), $fileName);
+                $path = "\\$this->defaultSavingPath\\$fileName";
 
                 $dataToSave = [
                     ...$formInputs,
@@ -121,11 +123,11 @@ class CategoryController extends Controller
 
                 try {
                     $fileName = $request->image->getClientOriginalName();
-                    $path = "\\images\\categories\\$fileName";
+                    $path = "\\$this->defaultSavingPath\\$fileName";
 
                     if ($path != $category->imagePath)
                     {
-                        $request->image->move(public_path('images\\categories'), $fileName);
+                        $request->image->move(public_path($this->defaultSavingPath), $fileName);
                         $dataToSave['imagePath'] = $path;
                         File::delete(public_path($category->imagePath));
                     }
