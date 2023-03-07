@@ -1,6 +1,8 @@
 export default {
     name: "Modal",
 
+    emits: ['closed'],
+
     props: {
         title: {
             type: String,
@@ -16,7 +18,5 @@ export default {
         }
     },
 
-    setup() {
-
-    }
+    setup() {}
 }

@@ -5,7 +5,7 @@
         <div class="modal" v-bind:class="{ show : show }">
             <div class="modal__header" v-if="title != ''">
                 <h3>{{ title }}</h3>
-                <v-icon icon="mdi-close" v-on:click="show = false"></v-icon>
+                <v-icon icon="mdi-close" v-on:click="show = false; $emit('closed')"></v-icon>
             </div>
 
             <div class="modal__content">

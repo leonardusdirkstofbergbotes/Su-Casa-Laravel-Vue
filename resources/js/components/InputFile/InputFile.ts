@@ -1,4 +1,4 @@
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 export default {
     name: "InputTime",
 
@@ -32,7 +32,6 @@ export default {
     setup(props, { emit }) {
         const previewUrl = ref();
         const fileSelected = ref<File>();
-        const tempImageName = ref<string | null>(null);
 
         const pickFile = (files: File[]) => {
             if (!props.multiple) {
@@ -57,38 +56,24 @@ export default {
             }
         });
 
-        const GetFileBlobUsingURL = function (url, convertBlob) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.responseType = "blob";
-            xhr.addEventListener('load', function() {
-                convertBlob(xhr.response);
-            });
-            xhr.send();
-        };
-
-        const blobToFile = function (blob, name) {
-                blob.lastModifiedDate = new Date();
-                blob.name = name;
-                return blob;
-        };
-
-        const GetFileObjectFromURL = function(filePathOrUrl, convertBlob) {
-            GetFileBlobUsingURL(filePathOrUrl, function (blob) {
-                convertBlob(blobToFile(blob, tempImageName.value));
-            });
-        };
-
         watch(() => props.initialImagePath, (imagePathFromParent) => {
             if (imagePathFromParent != null) {
-                const imagePathArray = imagePathFromParent.split('\\');
-                tempImageName.value = imagePathArray[imagePathArray.length - 1];
+                fetch(imagePathFromParent)
+                    .then((res) => res.blob())
+                    .then((blob: any) => {
+                        const imagePathArray = imagePathFromParent.split('\\');
+                        const filename = imagePathArray[imagePathArray.length - 1];
+                        blob.lastModified = new Date();
 
-                GetFileObjectFromURL(imagePathFromParent, (fileObject: File) => {
-                    createPreviewUrl(fileObject);
-                    console.log(fileObject);
-                });
+                        const fileObject = new File([blob], filename, {
+                            type: blob.type
+                        });
+
+                        createPreviewUrl(fileObject);
+                    })
+                ;
             }
+            else previewUrl.value = null;
         });
 
         return {

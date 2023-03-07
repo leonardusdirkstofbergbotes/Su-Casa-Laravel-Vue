@@ -5,7 +5,6 @@
 
             <img
                 v-else
-                class="preview-image"
                 :src="previewUrl"
                 @click="$refs.fileInput.click()" />
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -89,16 +90,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $formInputs = array_filter(json_decode($request->formData, true));
+
         $categoryModel = new Category();
         $modelRules = $categoryModel->rules;
         $applicableRules = [];
         foreach($modelRules as $column => $rule) {
-            if (array_key_exists($column, $request->toArray())) {
+            if (array_key_exists($column, $formInputs)) {
                 $applicableRules[$column] = $rule;
             }
         }
 
-        $validator = Validator::make($request->all(), $applicableRules);
+        $validator = Validator::make($formInputs, $applicableRules);
 
         if ($validator->fails()) {
             return response()->json([
@@ -110,13 +113,35 @@ class CategoryController extends Controller
         else {
             try {
                 $category = Category::where('id', $id)->first();
-                $category->update($request->toArray());
-                $updatedCategory = $category->refesh();
+                $dataToSave = [
+                    ...$formInputs
+                ];
+
+                try {
+                    $fileName = $request->image->getClientOriginalName();
+                    $path = "\\images\\$fileName";
+
+                    if ($path != $category->imagePath)
+                    {
+                        $request->image->move(public_path('images'), $fileName);
+                        $dataToSave['imagePath'] = $path;
+                        File::delete(public_path($category->imagePath));
+                    }
+                }
+                catch (\Exception $e) {
+                    return response()->json([
+                        'status' => true,
+                        'type' => 'file storage error',
+                        'error' => $e->getMessage()
+                    ], 400);
+                }
+
+                $category->update($dataToSave);
 
                 return response()->json([
                     'status' => true,
                     'message' => 'success',
-                    'category' => $updatedCategory,
+                    'category' => $category
                 ], 200);
             }
             catch(\Exception $e) {
@@ -134,6 +159,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        // TODO: Also delete picture
+        // File::delete(public_path($category->imagePath));
         return response()->json(Category::destroy($id), 200);
     }
 }

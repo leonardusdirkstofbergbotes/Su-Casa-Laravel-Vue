@@ -20,7 +20,7 @@ export default {
 
         const errors = ref<any[]>([]);
         const categoryForm = ref();
-        const tempCategoryId = ref();
+        const tempCategoryId = ref<string | null>(null);
 
         const categories = computed(() => {
             return store.getters['getCategories'];
@@ -48,6 +48,9 @@ export default {
             dailyCutoffTime.value = null;
             promote.value = false;
             image.value = null;
+            imagePath.value = null;
+
+            tempCategoryId.value = null;
         };
 
         const deleteCategory = (id: string) => {
@@ -63,25 +66,8 @@ export default {
             promote.value = category.promote;
             imagePath.value = category.imagePath;
 
-            tempCategoryId.value = category.id;
+            tempCategoryId.value = category.id.toString();
             openForm();
-        };
-
-        const updateCategory = () => {
-            if (validateForm()) {
-                const formData = getFormData();
-
-                request('post', `/api/categories/update/${tempCategoryId.value}`)
-                    .then((response: any) => {
-                        if (response.data.message == 'success') {
-                            store.commit('updateCategory', response.data.category);
-                            closeForm();
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
-            }
         };
 
         const save = () => {
@@ -111,6 +97,23 @@ export default {
                         }
                     }
                 });
+            }
+        };
+
+        const updateCategory = () => {
+            if (validateForm()) {
+                const formData = getFormData();
+
+                request('post', `/api/categories/update/${tempCategoryId.value}`, formData)
+                    .then((response: any) => {
+                        if (response.data.message == 'success') {
+                            store.commit('updateCategory', response.data.category);
+                            closeForm();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }
         };
 
@@ -166,8 +169,6 @@ export default {
                 promote: promote.value
             };
 
-            console.log(data);
-
             const formData = new FormData();
             formData.append('image', image.value as Blob);
             formData.append('formData', JSON.stringify(data));
@@ -196,7 +197,9 @@ export default {
             save,
             deleteCategory,
             editCategory,
-            updateCategory
+            updateCategory,
+            tempCategoryId,
+            resetForm
         }
     }
 }

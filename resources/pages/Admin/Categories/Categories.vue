@@ -1,7 +1,7 @@
 <template>
     <h1>Categories</h1>
     <vue-button v-on:click="openCreateForm()">Create new</vue-button>
-    <modal ref="categoryForm" title="Create new category">
+    <modal ref="categoryForm" title="Create new category" v-on:closed="resetForm()">
             <div class="form">
                 <input-file v-model="image" :initialImagePath="imagePath" :error="errors.image"></input-file>
                 <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
@@ -17,7 +17,8 @@
             </div>
 
             <template v-slot:footer>
-                <vue-button v-on:click="save()">Save</vue-button>
+                <vue-button v-if="tempCategoryId == null" v-on:click="save()">Save</vue-button>
+                <vue-button v-else v-on:click="updateCategory()">Update</vue-button>
                 <small v-on:click="closeForm()">Cancel</small>
         </template>
     </modal>
