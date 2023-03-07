@@ -72,7 +72,7 @@ export default {
 
         const save = () => {
             if (validateForm()) {
-                const formData = getFormData();
+                const formData = getInputData();
 
                 request('post', '/api/categories/create', formData, {
                     'Content-Type': 'multipart/form-data'
@@ -102,7 +102,7 @@ export default {
 
         const updateCategory = () => {
             if (validateForm()) {
-                const formData = getFormData();
+                const formData = getInputData();
 
                 request('post', `/api/categories/update/${tempCategoryId.value}`, formData)
                     .then((response: any) => {
@@ -159,7 +159,7 @@ export default {
             return store.dispatch('fetchCategories');
         }
 
-        const getFormData = (): FormData => {
+        const getInputData = (): FormData => {
             const data = {
                 name: name.value,
                 description: description.value,

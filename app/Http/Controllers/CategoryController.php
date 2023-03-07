@@ -161,8 +161,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        // TODO: Also delete picture
-        // File::delete(public_path($category->imagePath));
-        return response()->json(Category::destroy($id), 200);
+        $categoryToDelete = Category::find($id);
+        File::delete(public_path($categoryToDelete->imagePath));
+        return response()->json($categoryToDelete->delete(), 200);
     }
 }
