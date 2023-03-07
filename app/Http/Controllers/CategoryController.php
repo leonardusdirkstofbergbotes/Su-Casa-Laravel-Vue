@@ -101,21 +101,30 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), $applicableRules);
 
         if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()->all()], 400);
+            return response()->json([
+                "status" => false,
+                "type" => "validation error",
+                "errors" => $validator->errors()->all()
+            ], 400);
         }
         else {
             try {
-                $affectedRows = Category::where('id', $id)->update($request->toArray());
+                $category = Category::where('id', $id)->first();
+                $category->update($request->toArray());
+                $updatedCategory = $category->refesh();
 
-                if ($affectedRows > 0) {
-                    return response()->json(["message" => 'update successfull'], 200);
-                }
-                else {
-                    return response()->json(["message" => 'could not perform update'], 400);
-                }
+                return response()->json([
+                    'status' => true,
+                    'message' => 'success',
+                    'category' => $updatedCategory,
+                ], 200);
             }
             catch(\Exception $e) {
-                return response()->json(['message' => $e->getMessage()], 400);
+                return response()->json([
+                    'status' => false,
+                    'type' => 'mysql error',
+                    'error' => $e->getMessage()
+                ], 400);
             }
         }
     }

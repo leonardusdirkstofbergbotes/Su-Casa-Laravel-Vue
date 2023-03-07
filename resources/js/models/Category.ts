@@ -4,7 +4,7 @@ export default interface Category {
     description: string;
     imagePath: string | null;
     active: boolean;
-    activeUntil: string;
-    dailyCutoffTime: string;
+    activeUntil: string | null;
+    dailyCutoffTime: string | null;
     promote: boolean;
 };

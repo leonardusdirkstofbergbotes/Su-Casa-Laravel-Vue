@@ -1,6 +1,7 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
 import { request } from '../../../js/helper';
+import Category from '../../../js/models/Category';
 
 export default {
     name: "Categories",
@@ -14,10 +15,12 @@ export default {
         const activeUntil = ref<string | null>(null);
         const dailyCutoffTime = ref<string | null>(null);
         const promote = ref<boolean>(false);
+        const imagePath = ref<string | null>(null);
         const image = ref<File | null>(null);
 
         const errors = ref<any[]>([]);
         const categoryForm = ref();
+        const tempCategoryId = ref();
 
         const categories = computed(() => {
             return store.getters['getCategories'];
@@ -47,26 +50,49 @@ export default {
             image.value = null;
         };
 
+        const deleteCategory = (id: string) => {
+            store.dispatch('deleteCategory', id);
+        };
+
+        const editCategory = (category: Category) => {
+            name.value = category.name;
+            description.value = category.description;
+            active.value = category.active;
+            activeUntil.value = category.activeUntil;
+            dailyCutoffTime.value = category.dailyCutoffTime;
+            promote.value = category.promote;
+            imagePath.value = category.imagePath;
+
+            tempCategoryId.value = category.id;
+            openForm();
+        };
+
+        const updateCategory = () => {
+            if (validateForm()) {
+                const formData = getFormData();
+
+                request('post', `/api/categories/update/${tempCategoryId.value}`)
+                    .then((response: any) => {
+                        if (response.data.message == 'success') {
+                            store.commit('updateCategory', response.data.category);
+                            closeForm();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+        };
+
         const save = () => {
             if (validateForm()) {
-                const data = {
-                    name: name.value,
-                    description: description.value,
-                    active: active.value,
-                    activeUntil: activeUntil.value,
-                    dailyCutoffTime: dailyCutoffTime.value,
-                    promote: promote.value
-                };
-
-                const formData = new FormData();
-                formData.append('image', image.value as Blob);
-                formData.append('formData', JSON.stringify(data));
+                const formData = getFormData();
 
                 request('post', '/api/categories/create', formData, {
                     'Content-Type': 'multipart/form-data'
                 }).then((response: any) => {
                     if (response.data.message == 'success') {
-                        categories.value.push(response.data.category);
+                        store.commit('addCategory', response.data.category);
                         closeForm();
                     }
                 }).catch(error => {
@@ -130,6 +156,25 @@ export default {
             return store.dispatch('fetchCategories');
         }
 
+        const getFormData = (): FormData => {
+            const data = {
+                name: name.value,
+                description: description.value,
+                active: active.value,
+                activeUntil: activeUntil.value,
+                dailyCutoffTime: dailyCutoffTime.value,
+                promote: promote.value
+            };
+
+            console.log(data);
+
+            const formData = new FormData();
+            formData.append('image', image.value as Blob);
+            formData.append('formData', JSON.stringify(data));
+
+            return formData;
+        };
+
         onMounted(() => {
             fetchCategories();
         });
@@ -142,12 +187,16 @@ export default {
             activeUntil,
             dailyCutoffTime,
             promote,
+            imagePath,
             image,
             errors,
             categoryForm,
             openCreateForm,
             closeForm,
-            save
+            save,
+            deleteCategory,
+            editCategory,
+            updateCategory
         }
     }
 }

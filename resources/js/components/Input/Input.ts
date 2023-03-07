@@ -23,7 +23,7 @@ export default {
         default: "2"
     },
     tooltipText: String,
-    modelValue: String
+    modelValue: [String, null]
   },
 
   emits: ['update:modelValue'],

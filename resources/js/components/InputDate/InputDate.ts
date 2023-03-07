@@ -15,7 +15,7 @@ export default {
           default: false
       },
       tooltipText: String,
-      modelValue: String
+      modelValue: [String, null]
     },
 
     emits: ['update:modelValue'],

@@ -1,13 +1,14 @@
 <template>
     <div>
-        <div class="placeholder-image" >
+        <div class="placeholder-image">
             <v-icon v-if="previewUrl == null" icon="mdi-image" @click="$refs.fileInput.click()"></v-icon>
-            <div
+
+            <img
                 v-else
                 class="preview-image"
-                :style="{ 'background-image': `url(${previewUrl})` }"
-                @click="$refs.fileInput.click()">
-            </div>
+                :src="previewUrl"
+                @click="$refs.fileInput.click()" />
+
             <small class="error-message" v-if="error != ''">{{error}}</small>
         </div>
 

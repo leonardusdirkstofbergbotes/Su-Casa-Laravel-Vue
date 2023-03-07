@@ -3,7 +3,7 @@
     <vue-button v-on:click="openCreateForm()">Create new</vue-button>
     <modal ref="categoryForm" title="Create new category">
             <div class="form">
-                <input-file v-model="image" :error="errors.image"></input-file>
+                <input-file v-model="image" :initialImagePath="imagePath" :error="errors.image"></input-file>
                 <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
                 <vue-input type="textarea" rows="4" v-model="description" :error="errors.description" required>Description</vue-input>
                 <div class="dual-inputs">
@@ -22,12 +22,17 @@
         </template>
     </modal>
     <div class="categories">
-        <div class="category" v-for="category in categories.data" :key="category.id">
+        <div class="category"
+            v-for="category in categories.data"
+            :key="category.id"
+            @click="editCategory(category)"
+        >
             <img :src="category.imagePath" />
             <div>
                 <h4>{{ category.name }}</h4>
                 <small>{{ category.description + 'fksldfjls djflsdjfl jslfj lksdjfl sdjlfj lskdjflksdjfkl jd fdsfsdf sdf sdf' }}</small>
             </div>
+            <button @click="deleteCategory(category.id)">Delete</button>
         </div>
     </div>
 </template>
