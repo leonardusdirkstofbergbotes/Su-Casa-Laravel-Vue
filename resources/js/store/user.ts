@@ -1,3 +1,4 @@
+import axios from "axios";
 import UserDetails from "../models/UserDetails";
 
 export const userModule = {
@@ -42,6 +43,22 @@ export const userModule = {
             localStorage.removeItem('token');
             localStorage.removeItem('uid');
             commit('setUser', {});
+        },
+
+        refreshToken ({commit}, configSettings: any) {
+            return new Promise(async (resolve, reject) => {
+                await axios.get('/api/auth/refresh', configSettings).
+                    then(async (response) => {
+                        if (response.data.status == 'success') {
+                            localStorage.setItem('token', response.data.token);
+
+                            resolve(response.data.token);
+                        }
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+            });
         }
     },
     getters: {

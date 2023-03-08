@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useStore } from "vuex";
 
 export const request = async (method, url, data, headers) => {
     const token = localStorage.getItem('token')
@@ -15,19 +16,16 @@ export const request = async (method, url, data, headers) => {
         return await processRequest(method, url, data, config);
     }
     else if (tokenValidity === 'refreshToken') {
-        await axios.get('/api/auth/refresh', config).
-            then(async (response) => {
-                if (response.data.status == 'success') {
-                    localStorage.setItem('token', response.data.token);
-                    config.headers.Authorization = 'Bearer ' + response.data.token;
-
-                    return await processRequest(method, url, data, config);
-                }
+        const store = useStore();
+        await store.dispatch('refreshToken', config)
+            .then(async token => {
+                config.headers.Authorization = 'Bearer ' + token;
+                return await processRequest(method, url, data, config);
             })
             .catch(error => {
                 console.log(error);
                 return false;
-            })
+            });
     }
     return false
 }
