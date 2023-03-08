@@ -1,5 +1,5 @@
 export default interface Category {
-    id: number;
+    link: string;
     name: string;
     description: string;
     imagePath: string | null;

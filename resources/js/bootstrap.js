@@ -13,6 +13,7 @@ import router from '../routes/routes'
 import VueButton from './components/Button/Button.vue';
 import Input from './components/Input/Input.vue';
 import Default from './components/Layout/Default/Default.vue';
+import Admin from './components/Layout/Admin/Admin.vue';
 import Navbar from './components/Navbar/Navbar.vue';
 import Form from './components/Form/Form.vue';
 import Modal from './components/Modal/Modal.vue';
@@ -20,7 +21,6 @@ import Toggle from './components/Toggle/Toggle.vue';
 import InputDate from './components/InputDate/InputDate.vue';
 import InputTime from './components/InputTime/InputTime.vue';
 import InputFile from './components/InputFile/InputFile.vue';
-
 
 // Vuetify
 import 'vuetify/styles'
@@ -67,6 +67,7 @@ app.component('input-date', InputDate);
 app.component('input-time', InputTime);
 app.component('input-file', InputFile);
 app.component('default-layout', Default);
+app.component('admin-layout', Admin);
 app.component('navbar', Navbar);
 app.component('vue-form', Form);
 app.component('modal', Modal);

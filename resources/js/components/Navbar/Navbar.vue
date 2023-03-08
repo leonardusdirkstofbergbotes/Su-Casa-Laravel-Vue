@@ -1,16 +1,8 @@
 <template>
     <nav>
-        <router-link to="/browse">
-            <v-icon icon="mdi-home" size="x-large"></v-icon>
-            <small>Home</small>
-        </router-link>
-        <router-link to="/food">
-            <v-icon icon="mdi-food" size="x-large"></v-icon>
-            <small>Food</small>
-        </router-link>
-        <router-link to="/cart">
-            <v-icon icon="mdi-cart" size="x-large"></v-icon>
-            <small>Cart</small>
+        <router-link v-for="menuItem in menuItems" :key="menuItem.link" :to="menuItem.link">
+            <v-icon :icon="'mdi-' + menuItem.icon" size="x-large"></v-icon>
+            <small>{{menuItem.name}}</small>
         </router-link>
         <div>
             <v-icon icon="mdi-menu" size="x-large"></v-icon>

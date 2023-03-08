@@ -23,6 +23,10 @@ const router = createRouter({
         {
             path: '/admin/categories',
             component: () => import('../pages/Admin/Categories/Categories.vue')
+        },
+        {
+            path: '/admin/food',
+            component: () => import('../pages/Admin/Food/Food.vue')
         }
     ],
 });
