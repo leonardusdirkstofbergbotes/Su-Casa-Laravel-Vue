@@ -155,10 +155,6 @@ export default {
             if (!shouldActivate) activeUntil.value = '';
         });
 
-        const fetchCategories = async () => {
-            return store.dispatch('fetchCategories');
-        }
-
         const getInputData = (): FormData => {
             const data = {
                 name: name.value,
@@ -177,7 +173,7 @@ export default {
         };
 
         onMounted(() => {
-            fetchCategories();
+            store.dispatch('fetchCategories');
         });
 
         return {
