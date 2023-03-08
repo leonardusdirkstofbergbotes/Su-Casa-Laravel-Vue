@@ -1,3 +1,4 @@
+import { useStore } from 'vuex';
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -7,6 +8,7 @@ export default {
 
   setup() {
     const router = useRouter();
+    const store = useStore();
 
     const email = ref<string>();
     const password = ref<string>();
@@ -41,8 +43,9 @@ export default {
             axios.post('api/auth/login', data)
                 .then((response) => {
                     errors.value = [];
-                    localStorage.setItem('token', response.data.token);
-                    router.push('/browse');
+                    store.dispatch('loginUser', {...response.data.user, token: response.data.token}).then(() => {
+                        router.push('/browse');
+                    });
                 })
                 .catch(error => {
                     if (error.response?.data?.type) {
