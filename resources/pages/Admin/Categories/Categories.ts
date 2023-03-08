@@ -35,11 +35,6 @@ export default {
             resetForm();
         };
 
-        const openCreateForm = () => {
-            resetForm();
-            openForm();
-        };
-
         const resetForm = () => {
             name.value = null;
             description.value = null;
@@ -74,13 +69,9 @@ export default {
             if (validateForm()) {
                 const formData = getInputData();
 
-                request('post', '/api/categories/create', formData, {
-                    'Content-Type': 'multipart/form-data'
-                }).then((response: any) => {
-                    if (response.data.message == 'success') {
-                        store.commit('addCategory', response.data.category);
-                        closeForm();
-                    }
+                store.dispatch('createCategory', formData)
+                .then(() => {
+                    closeForm();
                 }).catch(error => {
                     if (error.response?.data?.type) {
                         if (error.response.data.type == "validation error") {
@@ -104,16 +95,13 @@ export default {
             if (validateForm()) {
                 const formData = getInputData();
 
-                request('post', `/api/categories/update/${tempCategoryId.value}`, formData)
-                    .then((response: any) => {
-                        if (response.data.message == 'success') {
-                            store.dispatch('updateCategory', response.data.category);
-                            closeForm();
-                        }
-                    })
-                    .catch(error => {
+                store.dispatch('updateCategory', {inputData: formData, categoryId: tempCategoryId.value})
+                    .then(() => {
+                        closeForm();
+                    }).catch(error => {
                         console.log(error);
-                    });
+                    })
+                ;
             }
         };
 
@@ -188,7 +176,7 @@ export default {
             image,
             errors,
             categoryForm,
-            openCreateForm,
+            openForm,
             closeForm,
             save,
             deleteCategory,

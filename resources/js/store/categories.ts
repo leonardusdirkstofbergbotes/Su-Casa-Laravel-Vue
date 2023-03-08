@@ -22,32 +22,68 @@ export const categoriesModule = {
     },
     actions: {
         fetchCategories ({commit}) {
-            request('get', '/api/categories')
-                .then(response => {
-                    commit('setCategories', response.data);
-                }).catch(error => {
-                    commit('setCategories', []);;
-                });
+            return new Promise((resolve, reject) => {
+                request('get', '/api/categories')
+                    .then((response: any) => {
+                        commit('setCategories', response.data);
+                        resolve(true);
+                    }).catch(error => {
+                        commit('setCategories', []);
+                        reject(error);
+                    });
+            });
         },
 
-        updateCategory ({state, commit}, updatedCategory: Category) {
-            const updatedCategoryRemoved = state.categories.filter((category: Category) => {
-                return category.id.toString() != updatedCategory.id.toString();
+        createCategory ({commit}, inputData) {
+            return new Promise((resolve, reject) =>{
+                request('post', '/api/categories/create', inputData, {'Content-Type': 'multipart/form-data'})
+                    .then((response: any) => {
+                        if (response.data.message == 'success') {
+                            commit('addCategory', response.data.category);
+                            resolve(true);
+                        }
+                    }).catch(error => {
+                        reject(error);
+                    });
             });
 
-            updatedCategoryRemoved.push(updatedCategory);
+        },
 
-            commit('setCategories', updatedCategoryRemoved);
+        updateCategory ({state, commit}, {inputData, categoryId}) {
+            console.log('category 2');
+            return new Promise((resolve, reject) => {
+                request('post', `/api/categories/update/${categoryId}`, inputData)
+                    .then((response: any) => {
+                        if (response.data.message == 'success') {
+                            const updatedCategory = response.data.category;
+
+                            const updatedCategoryRemoved = state.categories.filter((category: Category) => {
+                                return category.id.toString() != updatedCategory.id.toString();
+                            });
+
+                            updatedCategoryRemoved.push(updatedCategory);
+                            commit('setCategories', updatedCategoryRemoved);
+                            resolve(true);
+                        }
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+                ;
+            });
         },
 
         deleteCategory ({commit}, id: string) {
-            request('delete', `/api/categories/delete/${id}`)
+            return new Promise((resolve, reject) => {
+                request('delete', `/api/categories/delete/${id}`)
                 .then(() => {
-                    this.commit('removeCategory', id);
+                    commit('removeCategory', id);
+                    resolve(true);
                 })
                 .catch(error => {
-                    console.log(error);
+                    reject(error);
                 })
+            });
         }
     },
     getters: {

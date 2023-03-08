@@ -1,6 +1,6 @@
 <template>
     <h1>Categories</h1>
-    <vue-button v-on:click="openCreateForm()">Create new</vue-button>
+    <vue-button v-on:click="openForm()">Create new</vue-button>
     <modal
         ref="categoryForm"
         title="Create new category"

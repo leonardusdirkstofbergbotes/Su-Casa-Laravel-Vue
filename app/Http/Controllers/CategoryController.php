@@ -46,7 +46,7 @@ class CategoryController extends Controller
             return response()->json([
                 "status" => false,
                 "type" => "validation error",
-                "errors" => $validator->errors()->all()
+                "errors" => $validator->errors()
             ], 400);
         }
         else {
