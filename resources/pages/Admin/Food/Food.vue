@@ -13,9 +13,7 @@
                     :initialImagePath="imagePath"
                     :error="errors.image"
                 ></input-file>
-                <vue-input v-model="name" :error="errors.name" required
-                    >Name</vue-input
-                >
+                <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
                 <vue-input
                     type="textarea"
                     rows="4"
@@ -37,6 +35,13 @@
                     <toggle v-model="promote" required>Promote</toggle>
                     <input-time v-model="dailyCutoffTime">Daily cutoff</input-time>
                 </div>
+
+                <vue-input v-model="eta" min="0" :error="errors.eta" type="number" required>ETA</vue-input>
+                <vue-input v-model="price" min="0" type="number" :error="errors.price" required>Price</vue-input>
+                <vue-input v-model="bulkBuyDiscount" min="0" max="100" type="number" :error="errors.bulkBuyDiscount" required>Bulk Buy Discount (%)</vue-input>
+                <vue-input v-model="bulkBuyPortions" min="0" type="number" :error="errors.bulkBuyPortions" required>Bulk Buy Portions</vue-input>
+
+
             </div>
 
             <template v-slot:footer>
