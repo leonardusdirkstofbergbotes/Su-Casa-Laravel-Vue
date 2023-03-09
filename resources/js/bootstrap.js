@@ -21,6 +21,7 @@ import Toggle from './components/Toggle/Toggle.vue';
 import InputDate from './components/InputDate/InputDate.vue';
 import InputTime from './components/InputTime/InputTime.vue';
 import InputFile from './components/InputFile/InputFile.vue';
+import AlertBox from './components/AlertBox/AlertBox.vue';
 
 // Vuetify
 import 'vuetify/styles'
@@ -28,6 +29,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import store from './store';
+
 
 const myCustomLightTheme = {
     dark: false,
@@ -72,5 +74,7 @@ app.component('navbar', Navbar);
 app.component('vue-form', Form);
 app.component('modal', Modal);
 app.component('toggle', Toggle);
+app.component('alert-box', AlertBox);
+
 
 app.mount("#app");

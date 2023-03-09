@@ -1,6 +1,5 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
-import { request } from '../../../js/helper';
 import Category from '../../../js/models/Category';
 
 export default {
@@ -49,7 +48,11 @@ export default {
         };
 
         const deleteCategory = (id: string) => {
-            store.dispatch('deleteCategory', id);
+            store.dispatch('deleteCategory', id)
+                .then(() => {
+                    store.dispatch('showSuccess', 'Category has been deleted successfully');
+                })
+            ;
         };
 
         const editCategory = (category: Category) => {
@@ -71,6 +74,7 @@ export default {
 
                 store.dispatch('createCategory', formData)
                 .then(() => {
+                    store.dispatch('showSuccess', 'Category has been created successfully');
                     closeForm();
                 }).catch(error => {
                     if (error.response?.data?.type) {
@@ -97,6 +101,7 @@ export default {
 
                 store.dispatch('updateCategory', {inputData: formData, categoryId: tempCategoryId.value})
                     .then(() => {
+                        store.dispatch('showSuccess', 'Category has been updated successfully');
                         closeForm();
                     }).catch(error => {
                         console.log(error);

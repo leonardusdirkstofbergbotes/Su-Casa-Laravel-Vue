@@ -1,7 +1,7 @@
 <template>
-    <div class="alert-box">
-        <span>dsdsdsdsd</span>
-        <v-icon icon="mdi-close" v-on:click="show = false; $emit('closed')"></v-icon>
+    <div class="alert-box" v-if="alert" :class="alert.type">
+        <span>{{alert.message}}</span>
+        <v-icon icon="mdi-close" v-on:click="closeMessage()"></v-icon>
     </div>
 </template>
 

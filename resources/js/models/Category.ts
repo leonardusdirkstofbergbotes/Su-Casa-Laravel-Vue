@@ -1,4 +1,5 @@
 export default interface Category {
+    id: string;
     link: string;
     name: string;
     description: string;

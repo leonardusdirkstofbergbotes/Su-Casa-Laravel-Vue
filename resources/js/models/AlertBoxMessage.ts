@@ -1,6 +1,6 @@
 import { AlertType } from "../enums/AlertTypes";
 
-export default interface AlertBoxMessage {
+export interface AlertBoxMessage {
     message: string;
     type: AlertType;
 };
