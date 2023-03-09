@@ -1,6 +1,6 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
-import Category from '../../../js/models/Category';
+import Food from '../../../js/models/Food';
 
 export default {
     name: "Food",
@@ -65,17 +65,20 @@ export default {
             ;
         };
 
-        // TODO:
-        const editCategory = (category: Category) => {
-            name.value = category.name;
-            description.value = category.description;
-            active.value = category.active;
-            activeUntil.value = category.activeUntil;
-            dailyCutoffTime.value = category.dailyCutoffTime;
-            promote.value = category.promote;
-            imagePath.value = category.imagePath;
+        const editCategory = (food: Food) => {
+            name.value = food.name;
+            description.value = food.description;
+            active.value = food.active;
+            activeUntil.value = food.activeUntil;
+            dailyCutoffTime.value = food.dailyCutoffTime;
+            promote.value = food.promote;
+            imagePath.value = food.imagePath;
+            eta. value = food.eta;
+            price. value = food.price;
+            bulkBuyDiscount. value = food.bulkBuyDiscount;
+            bulkBuyPortions. value = food.bulkBuyPortions;
 
-            tempFoodId.value = category.id.toString();
+            tempFoodId.value = food.id.toString();
             openForm();
         };
 
@@ -123,7 +126,6 @@ export default {
             }
         };
 
-        // TODO:
         const validateForm = (): boolean => {
             let formattedErrors = [];
             let isFormValid = true;
@@ -137,7 +139,7 @@ export default {
                 isFormValid = false;
             }
             if (image.value == undefined || image.value == null) {
-                formattedErrors['image'] = 'Please add a image for this category';
+                formattedErrors['image'] = 'Please add a image for this food item';
                 isFormValid = false;
             }
             if (activeUntil.value != undefined && activeUntil.value != null) {
@@ -162,7 +164,6 @@ export default {
             if (!shouldActivate) activeUntil.value = '';
         });
 
-        // TODO:
         const getInputData = (): FormData => {
             const data = {
                 name: name.value,
@@ -170,7 +171,11 @@ export default {
                 active: active.value,
                 activeUntil: activeUntil.value,
                 dailyCutoffTime: dailyCutoffTime.value,
-                promote: promote.value
+                promote: promote.value,
+                eta: eta.value,
+                price: price.value,
+                bulkBuyDiscount: bulkBuyDiscount.value,
+                bulkBuyPortions: bulkBuyPortions.value
             };
 
             const formData = new FormData();

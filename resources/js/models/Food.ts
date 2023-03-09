@@ -1,4 +1,5 @@
-export default interface Category {
+export default interface Food {
+    id: string,
     name: string;
     description: string;
     active: boolean;
