@@ -1,3 +1,4 @@
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { ref } from 'vue';
@@ -6,6 +7,7 @@ export default {
 
     setup() {
         const router = useRouter();
+        const store = useStore();
 
         const name = ref<string>();
         const email = ref<string>();
@@ -45,8 +47,9 @@ export default {
                 axios.post('api/auth/register', data)
                     .then((response) => {
                         errors.value = [];
-                        localStorage.setItem('token', response.data.token);
-                        router.push('/browse');
+                        store.dispatch('loginUser', {...response.data.user, token: response.data.token}).then(() => {
+                            router.push('/browse');
+                        });
                     })
                     .catch(error => {
                         if (error.response?.data?.message == "validation error") {
