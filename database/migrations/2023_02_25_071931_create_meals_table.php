@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('foods', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->string('description')->nullable(false);
             $table->string('imagePath')->nullable(false);
             $table->string('price')->nullable(false);
             $table->boolean('active')->nullable(false);
-            $table->timestamp('activeUntil')->nullable()->nullable(false);
-            $table->time('dailyCutoffTime')->nullable()->nullable(false);
-            $table->integer('bulkBuyDiscount')->nullable(false);
-            $table->integer('bulkBuyPortions')->nullable(false);
-            $table->string('eta')->nullable(false);
+            $table->timestamp('activeUntil')->nullable();
+            $table->time('dailyCutoffTime')->nullable();
+            $table->integer('bulkBuyDiscount')->nullable();
+            $table->integer('bulkBuyPortions')->nullable();
+            $table->string('eta')->nullable();
             $table->boolean('promote')->nullable(false);
             $table->timestamps();
         });
