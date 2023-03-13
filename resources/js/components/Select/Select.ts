@@ -1,5 +1,6 @@
-import { PropType, computed } from 'vue';
-import SelectItem from '../../models/SelectItem'
+import { PropType, ref } from 'vue';
+import SelectItem from '../../models/SelectItem';
+import { onClickOutside } from '@vueuse/core';
 
 export default {
     name: "Select",
@@ -42,6 +43,9 @@ export default {
       emits: ['update:modelValue'],
 
     setup(props, {emit}) {
+        const selectWrapper = ref(null);
+        const showDropdown = ref<boolean>(false);
+
         const itemIsSelected = (value: string) => {
             return props.modelValue.includes(value);
         };
@@ -80,11 +84,28 @@ export default {
             return itemsMatched.length == 0;
         };
 
+        const determinePosition = (element: Element) => {
+            if (element.tagName === "DIV") {
+                if (showDropdown.value == true) showDropdown.value = false;
+                else {
+
+                    showDropdown.value = true;
+                }
+            }
+        };
+
+        onClickOutside (selectWrapper, (event) => {
+            showDropdown.value = false;
+        })
+
         return {
+            selectWrapper,
+            showDropdown,
             toggleItem,
             getLabel,
             itemIsSelected,
-            removeItem
+            removeItem,
+            determinePosition
         }
     }
 }
