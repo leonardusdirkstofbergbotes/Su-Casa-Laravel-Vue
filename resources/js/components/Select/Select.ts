@@ -51,7 +51,6 @@ export default {
                 console.log(itemIsUnique(option.value));
                 if (itemIsUnique(option.value)) emit('update:modelValue', [...props.modelValue, option.value]);
                 else removeItem(option.value);
-
             }
             else emit('update:modelValue', option.value);
         };

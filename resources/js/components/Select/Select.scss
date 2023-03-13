@@ -39,6 +39,7 @@
     }
 
     &-dropdown {
+        transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -47,6 +48,17 @@
         border: 1px solid $subtle-grey;
         z-index: 3;
         background-color: white;
+        visibility: hidden;
+        max-height: 0;
+        opacity: 0;
+        overflow-y: hidden;
+
+        &.open {
+            max-height: 15rem;
+            visibility: visible;
+            opacity: 1;
+            overflow-y: auto;
+        }
 
         & > span {
             padding: 0.3rem 0.5rem;
