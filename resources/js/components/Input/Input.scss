@@ -10,6 +10,7 @@
     label {
         margin-bottom: 0.3rem;
         padding-left: 0.1rem;
+        display: flex;
 
         .indicator {
             &-required {
@@ -21,6 +22,16 @@
                 color: $grey;
                 font-size: 0.5rem;
                 margin-left: 0.2rem;
+            }
+        }
+
+        .help-icon {
+            color: $primary-light;
+            margin-left: 0.5rem;
+
+            &:hover {
+                color: $primary;
+                cursor: pointer;
             }
         }
     }

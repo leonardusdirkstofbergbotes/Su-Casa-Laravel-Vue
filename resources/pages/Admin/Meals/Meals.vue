@@ -6,7 +6,7 @@
         <vue-button v-on:click="openForm()">Create new</vue-button>
         <modal
             ref="foodForm"
-            title="Create new food item"
+            title="Create new meal"
             v-on:closed="resetForm()"
         >
             <div class="form">
