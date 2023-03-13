@@ -7,13 +7,13 @@ export default {
             name: 'Categories',
             icon: 'food'
         },{
-            link: '/admin/food',
-            name: 'Food',
-            icon: 'hamburger'
-        },{
             link: '/admin/meals',
             name: 'Meals',
             icon: 'noodles'
+        },{
+            link: '/browse',
+            name: 'Browse',
+            icon: 'hamburger'
         }];
 
         return {

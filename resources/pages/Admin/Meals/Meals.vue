@@ -1,6 +1,6 @@
 <template>
     <admin-layout>
-        <h1>Food</h1>
+        <h1>Meals</h1>
         <vue-button v-on:click="openForm()">Create new</vue-button>
         <modal
             ref="foodForm"
@@ -76,5 +76,5 @@
     </admin-layout>
 </template>
 
-<script src="./Food.ts" />
-<style lang="scss" src="./Food.scss" />
+<script src="./Meals.ts" />
+<style lang="scss" src="./Meals.scss" />
