@@ -16,7 +16,7 @@
                     :error="errors.image"
                 ></input-file>
                 <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
-                <input-select v-model="categoryIds" multiple :error="errors.categoryIds" required :options="categoryOptions">Category</input-select>
+                <input-select v-model="categoryIds" multiple :error="errors.categoryIds" required :options="categoryOptions">Categories</input-select>
                 <vue-input
                     type="textarea"
                     rows="4"

@@ -22,10 +22,6 @@ export default {
             type: Boolean,
             default: false
         },
-        rows: {
-            type: String,
-            default: "2"
-        },
         options: {
             type: Object as PropType<SelectItem[]>,
             default: () => []
@@ -56,7 +52,10 @@ export default {
                 if (itemIsUnique(option.value)) emit('update:modelValue', [...props.modelValue, option.value]);
                 else removeItem(option.value);
             }
-            else emit('update:modelValue', option.value);
+            else {
+                emit('update:modelValue', option.value);
+                showDropdown.value = false;
+            }
         };
 
         const removeItem = (value: string) => {
@@ -88,7 +87,7 @@ export default {
             if (element.tagName === "DIV") {
                 if (showDropdown.value == true) showDropdown.value = false;
                 else {
-
+                    // TODO: get position of input and check if enough space is available to render the dropdown as normal ELSE render on top
                     showDropdown.value = true;
                 }
             }
