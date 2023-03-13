@@ -1,6 +1,8 @@
 <template>
     <admin-layout>
         <h1>Meals</h1>
+
+
         <vue-button v-on:click="openForm()">Create new</vue-button>
         <modal
             ref="foodForm"
@@ -14,6 +16,7 @@
                     :error="errors.image"
                 ></input-file>
                 <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
+                <input-select v-model="categoryIds" multiple :error="errors.categoryIds" required :options="categoryOptions">Category</input-select>
                 <vue-input
                     type="textarea"
                     rows="4"
@@ -40,7 +43,6 @@
                 <vue-input v-model="price" min="0" type="number" :error="errors.price" required>Price</vue-input>
                 <vue-input v-model="bulkBuyDiscount" min="0" max="100" type="number" :error="errors.bulkBuyDiscount" required>Bulk Buy Discount (%)</vue-input>
                 <vue-input v-model="bulkBuyPortions" min="0" type="number" :error="errors.bulkBuyPortions" required>Bulk Buy Portions</vue-input>
-
 
             </div>
 

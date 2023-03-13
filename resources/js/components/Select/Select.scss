@@ -1,0 +1,72 @@
+@import 'resources/sass/variables';
+
+.select {
+    border-radius: $border-radius;
+    padding: 0.3rem;
+    border-radius: $border-radius;
+    outline: none;
+    border: 1px solid $light-grey;
+    font-size: 1.2rem;
+    min-width: 12rem;
+    min-height: 2.5rem;
+
+    &:focus {
+        box-shadow: $shadow-medium;
+        border-color: $grey;
+        outline: 1px solid $primary;
+    }
+
+    &.error {
+        border-color: $error;
+    }
+
+    &__wrapper {
+        position: relative;
+    }
+
+    .pill {
+        border-radius: $border-radius;
+        background-color: $subtle-grey;
+        padding: 0.1rem 0.5rem;
+        border: 1px solid $light-grey;
+        font-size: smaller;
+
+        &--wrapper {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+    }
+
+    &-dropdown {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        box-shadow: $shadow-medium;
+        border: 1px solid $subtle-grey;
+        z-index: 3;
+        background-color: white;
+
+        & > span {
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $subtle-grey;
+            }
+
+            &.disabled {
+                background-color: $subtle-grey;
+                cursor: auto;
+                pointer-events: none;
+                color: $grey;
+            }
+
+            &.selected {
+                color: $primary;
+                font-weight: bold;
+            }
+        }
+    }
+}

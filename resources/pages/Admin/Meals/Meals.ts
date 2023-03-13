@@ -20,15 +20,27 @@ export default {
         const bulkBuyPortions = ref<number | null>(null);
         const imagePath = ref<string | null>(null);
         const image = ref<File | null>(null);
-
         const errors = ref<any[]>([]);
         const foodForm = ref();
         const tempFoodId = ref<string | null>(null);
+        const categoryIds = ref<string[]>(["3", "4"]);
 
-        // TODO:
-        const categories = computed(() => {
+        const categoryOptions = computed(() => {
+            return [{
+                label: "test 1",
+                value: 1
+            }, {
+                label: 'test 2',
+                value: 2
+            },{
+                label: "test 3",
+                value: 3
+            }, {
+                label: 'test 4',
+                value: 4
+            }];
             return store.getters['getCategories'];
-        })
+        });
 
         const openForm = () => {
             foodForm.value.show = true;
@@ -191,12 +203,13 @@ export default {
         });
 
         return {
-            categories,
+            categoryOptions,
             name,
             description,
             active,
             activeUntil,
             dailyCutoffTime,
+            categoryIds,
             promote,
             imagePath,
             image,
