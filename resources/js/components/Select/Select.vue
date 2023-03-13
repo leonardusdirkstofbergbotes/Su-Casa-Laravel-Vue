@@ -8,7 +8,10 @@
         <div class="select--wrapper">
             <div class="select" v-bind:class="{ error: error != '' }">
                 <div v-if="multiple" class="pill--wrapper">
-                    <span v-for="value in modelValue" class="pill">{{ getLabel(value) }}</span>
+                    <span v-for="value in modelValue" class="pill">
+                        {{ getLabel(value) }}
+                        <v-icon icon="mdi-close" @click="removeItem(value)" size="small"></v-icon>
+                    </span>
                 </div>
                 <span v-else class="placeholder"></span>
             </div>

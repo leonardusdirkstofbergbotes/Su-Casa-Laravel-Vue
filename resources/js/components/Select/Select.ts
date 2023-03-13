@@ -50,17 +50,19 @@ export default {
             if (props.multiple) {
                 console.log(itemIsUnique(option.value));
                 if (itemIsUnique(option.value)) emit('update:modelValue', [...props.modelValue, option.value]);
-                else {
-                    const removedItemArray = props.modelValue.filter((item) => {
-                        return item != option.value;
-                    });
-
-                    emit('update:modelValue', removedItemArray);
-                }
+                else removeItem(option.value);
 
             }
             else emit('update:modelValue', option.value);
         };
+
+        const removeItem = (value: string) => {
+            const removedItemArray = props.modelValue.filter((item) => {
+                return item != value;
+            });
+
+            emit('update:modelValue', removedItemArray);
+        }
 
         const getLabel = (value: string) => {
             const mathcedOption = props.options.find((option: SelectItem) => {
@@ -82,7 +84,8 @@ export default {
         return {
             toggleItem,
             getLabel,
-            itemIsSelected
+            itemIsSelected,
+            removeItem
         }
     }
 }

@@ -39,7 +39,7 @@ export default {
                 label: 'test 4',
                 value: 4
             }];
-            return store.getters['getCategories'];
+            return store.getters['getCategories']; //TODO: Perhaps get only Active categories
         });
 
         const openForm = () => {
