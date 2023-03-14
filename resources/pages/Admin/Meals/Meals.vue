@@ -40,11 +40,10 @@
                     <input-time v-model="dailyCutoffTime">Daily cutoff</input-time>
                 </div>
 
-                <vue-input v-model="eta" min="0" :error="errors.eta" type="number" tooltipText="A rougth estimate of how long it will take to prepare this meal. This is shown to the users">ETA</vue-input>
-                <vue-input v-model="price" min="0" type="number" :error="errors.price" required>Price</vue-input>
-                <vue-input v-model="bulkBuyPortions" min="0" type="number" :error="errors.bulkBuyPortions" tooltipText="When a person buys X amount of this meal they would qualify for a discount. Use this field to enter how many of this meal they must order before recieving the discount">Bulk Buy Portions</vue-input>
-                <vue-input :disabled="bulkBuyPortions == null || bulkBuyPortions == ''" v-model="bulkBuyDiscount" min="0" max="100" type="number" :error="errors.bulkBuyDiscount" tooltipText="Enter the percentage of discount that will be applied once the user has ordered the meals qualifying for discount">Bulk Buy Discount (%)</vue-input>
-
+                <vue-input v-model="eta" min="1" :error="errors.eta" type="number" tooltipText="A rougth estimate of how long it will take to prepare this meal. This is shown to the users">ETA (minutes)</vue-input>
+                <vue-input v-model="price" min="1" type="number" :error="errors.price" required>Price</vue-input>
+                <vue-input v-model="bulkBuyPortions" min="1" type="number" :error="errors.bulkBuyPortions" tooltipText="When a person buys X amount of this meal they would qualify for a discount. Use this field to enter how many of this meal they must order before recieving the discount">Bulk Buy Portions</vue-input>
+                <vue-input :disabled="bulkBuyPortions == null || bulkBuyPortions == ''" v-model="bulkBuyDiscount" min="1" max="100" type="number" :error="errors.bulkBuyDiscount" tooltipText="Enter the percentage of discount that will be applied once the user has ordered the meals qualifying for discount">Bulk Buy Discount (%)</vue-input>
             </div>
 
             <template v-slot:footer>

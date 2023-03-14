@@ -4,6 +4,7 @@
 
         <div class="modal" v-bind:class="{ show : show }">
             <div class="modal__header" v-if="title != ''">
+                <div class="modal__header-fader"></div>
                 <h3>{{ title }}</h3>
                 <v-icon icon="mdi-close" v-on:click="show = false; $emit('closed')"></v-icon>
             </div>
@@ -13,6 +14,7 @@
             </div>
 
             <div class="modal__footer">
+                <div class="modal__footer-fader"></div>
                 <slot name="footer"></slot>
             </div>
         </div>
