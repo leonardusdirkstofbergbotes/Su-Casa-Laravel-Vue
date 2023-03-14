@@ -176,6 +176,10 @@ export default {
             if (!shouldActivate) activeUntil.value = '';
         });
 
+        watch(bulkBuyPortions, (portions: number | null) => {
+            if (portions == 0) bulkBuyDiscount.value = null;
+        });
+
         const getInputData = (): FormData => {
             const data = {
                 name: name.value,
@@ -213,6 +217,10 @@ export default {
             promote,
             imagePath,
             image,
+            eta,
+            price,
+            bulkBuyDiscount,
+            bulkBuyPortions,
             errors,
             foodForm,
             openForm,
