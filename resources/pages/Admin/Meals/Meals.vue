@@ -31,6 +31,7 @@
                         v-model="activeUntil"
                         :error="errors.activeUntil"
                         :disabled="!active"
+                        afterToday
                         >Activce until</input-date
                     >
                 </div>
