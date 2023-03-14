@@ -1,6 +1,7 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
-import Food from '../../../js/models/Food';
+import Food from '../../../js/models/Meal';
+import Category from '../../../js/models/Category';
 
 export default {
     name: "Food",
@@ -22,24 +23,20 @@ export default {
         const image = ref<File | null>(null);
         const errors = ref<any[]>([]);
         const foodForm = ref();
-        const tempFoodId = ref<string | null>(null);
+        const tempMealId = ref<string | null>(null);
         const categoryIds = ref<string[]>([]);
 
+        const activeCategories = computed(() => {
+            return store.getters['getActiveCategories'];
+        });
+
         const categoryOptions = computed(() => {
-            return [{
-                label: "test 1",
-                value: 1
-            }, {
-                label: 'test 2',
-                value: 2
-            },{
-                label: "test 3",
-                value: 3
-            }, {
-                label: 'test 4',
-                value: 4
-            }];
-            return store.getters['getCategories']; //TODO: Perhaps get only Active categories
+            return activeCategories.value.map((category: Category) => {
+                return {
+                    label: category.name,
+                    value: category.id
+                }
+            });
         });
 
         const openForm = () => {
@@ -65,19 +62,19 @@ export default {
             bulkBuyDiscount.value = null;
             bulkBuyPortions.value = null;
 
-            tempFoodId.value = null;
+            tempMealId.value = null;
         };
 
         // TODO:
-        const deleteCategory = (id: string) => {
-            store.dispatch('deleteCategory', id)
+        const deleteMeal = (id: string) => {
+            store.dispatch('deleteMeal', id)
                 .then(() => {
-                    store.dispatch('showSuccess', 'Category has been deleted successfully');
+                    store.dispatch('showSuccess', 'Meal has been deleted successfully');
                 })
             ;
         };
 
-        const editCategory = (food: Food) => {
+        const editMeal = (food: Food) => {
             name.value = food.name;
             description.value = food.description;
             active.value = food.active;
@@ -90,7 +87,7 @@ export default {
             bulkBuyDiscount. value = food.bulkBuyDiscount;
             bulkBuyPortions. value = food.bulkBuyPortions;
 
-            tempFoodId.value = food.id.toString();
+            tempMealId.value = food.id.toString();
             openForm();
         };
 
@@ -99,9 +96,9 @@ export default {
             if (validateForm()) {
                 const formData = getInputData();
 
-                store.dispatch('createCategory', formData)
+                store.dispatch('createMeal', formData)
                 .then(() => {
-                    store.dispatch('showSuccess', 'Category has been created successfully');
+                    store.dispatch('showSuccess', 'Meal has been created successfully');
                     closeForm();
                 }).catch(error => {
                     if (error.response?.data?.type) {
@@ -123,13 +120,13 @@ export default {
         };
 
         // TODO:
-        const updateCategory = () => {
+        const updateMeal = () => {
             if (validateForm()) {
                 const formData = getInputData();
 
-                store.dispatch('updateCategory', {inputData: formData, categoryId: tempFoodId.value})
+                store.dispatch('updateMeal', {inputData: formData, categoryId: tempMealId.value})
                     .then(() => {
-                        store.dispatch('showSuccess', 'Category has been updated successfully');
+                        store.dispatch('showSuccess', 'Meal has been updated successfully');
                         closeForm();
                     }).catch(error => {
                         console.log(error);
@@ -211,6 +208,7 @@ export default {
 
         // TODO:
         onMounted(() => {
+            store.dispatch('fetchMeals');
             store.dispatch('fetchCategories');
         });
 
@@ -234,10 +232,10 @@ export default {
             openForm,
             closeForm,
             save,
-            deleteCategory,
-            editCategory,
-            updateCategory,
-            tempFoodId,
+            deleteMeal,
+            editMeal,
+            updateMeal,
+            tempMealId,
             resetForm
         }
     }

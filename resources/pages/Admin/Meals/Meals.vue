@@ -48,10 +48,10 @@
             </div>
 
             <template v-slot:footer>
-                <vue-button v-if="tempCategoryId == null" v-on:click="save()"
+                <vue-button v-if="tempMealId == null" v-on:click="save()"
                     >Save</vue-button
                 >
-                <vue-button v-else v-on:click="updateCategory()">Update</vue-button>
+                <vue-button v-else v-on:click="updateMeal()">Update</vue-button>
                 <small v-on:click="closeForm()">Cancel</small>
             </template>
         </modal>
@@ -66,12 +66,12 @@
                     }}</small>
                 </div>
                 <div class="actions">
-                    <span @click="editCategory(category)">Edit</span>
+                    <span @click="editMeal(category)">Edit</span>
                     <v-icon
                         class="delete"
                         size="x-large"
                         icon="mdi-delete"
-                        @click="deleteCategory(category.id)"
+                        @click="deleteMeal(category.id)"
                     ></v-icon>
                 </div>
             </div>

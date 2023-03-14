@@ -1,34 +1,34 @@
 import { request } from "../helper";
-import Category from "../models/Category";
+import Meal from "../models/Meal";
 
-export const categoriesModule = {
+export const mealsModule = {
     state() {
         return {
-            categories: <Category[]> []
+            meals: <Meal[]> []
         }
     },
     mutations: {
-        setCategories(state, categories: Category[]) {
-            state.categories = categories;
+        setMeals(state, meals: Meal[]) {
+            state.meals = meals;
         },
-        addCategory (state, category: Category) {
-            state.categories.push(category);
+        addMeal (state, meal: Meal) {
+            state.meals.push(meal);
         },
-        removeCategory (state, id: string) {
-            state.categories = state.categories.filter((category: Category) => {
-                return category.id.toString() != id;
+        removeMeal (state, id: string) {
+            state.meals = state.meals.filter((meal: Meal) => {
+                return meal.id.toString() != id;
             });
         }
     },
     actions: {
         fetchCategories ({commit}) {
             return new Promise((resolve, reject) => {
-                request('get', '/api/categories')
+                request('get', '/api/meals')
                     .then((response: any) => {
-                        commit('setCategories', response.data);
+                        commit('setMeals', response.data);
                         resolve(true);
                     }).catch(error => {
-                        commit('setCategories', []);
+                        commit('setMeals', []);
                         reject(error);
                     });
             });
@@ -36,10 +36,10 @@ export const categoriesModule = {
 
         createCategory ({commit}, inputData) {
             return new Promise((resolve, reject) =>{
-                request('post', '/api/categories/create', inputData, {'Content-Type': 'multipart/form-data'})
+                request('post', '/api/meals/create', inputData, {'Content-Type': 'multipart/form-data'})
                     .then((response: any) => {
                         if (response.data.message == 'success') {
-                            commit('addCategory', response.data.category);
+                            commit('addMeal', response.data.meal);
                             resolve(true);
                         }
                     }).catch(error => {
@@ -50,19 +50,19 @@ export const categoriesModule = {
         },
 
         updateCategory ({state, commit}, {inputData, categoryId}) {
-            console.log('category 2');
+            console.log('meal 2');
             return new Promise((resolve, reject) => {
-                request('post', `/api/categories/update/${categoryId}`, inputData)
+                request('post', `/api/meals/update/${categoryId}`, inputData)
                     .then((response: any) => {
                         if (response.data.message == 'success') {
-                            const updatedCategory = response.data.category;
+                            const updatedCategory = response.data.meal;
 
-                            const updatedCategoryRemoved = state.categories.filter((category: Category) => {
-                                return category.id.toString() != updatedCategory.id.toString();
+                            const updatedCategoryRemoved = state.meals.filter((meal: Meal) => {
+                                return meal.id.toString() != updatedCategory.id.toString();
                             });
 
                             updatedCategoryRemoved.push(updatedCategory);
-                            commit('setCategories', updatedCategoryRemoved);
+                            commit('setMeals', updatedCategoryRemoved);
                             resolve(true);
                         }
                     })
@@ -75,9 +75,9 @@ export const categoriesModule = {
 
         deleteCategory ({commit}, id: string) {
             return new Promise((resolve, reject) => {
-                request('delete', `/api/categories/delete/${id}`)
+                request('delete', `/api/meals/delete/${id}`)
                 .then(() => {
-                    commit('removeCategory', id);
+                    commit('removeMeal', id);
                     resolve(true);
                 })
                 .catch(error => {
@@ -87,20 +87,12 @@ export const categoriesModule = {
         }
     },
     getters: {
-        getCategories (state) {
-            return state.categories.sort((a, b) => {
+        getMeals (state) {
+            return state.meals.sort((a, b) => {
                 if (a.name < b.name) return -1
                 if (a.name > b.name) return 1;
                 return 0;
             });
-        },
-
-        getActiveCategories (state) {
-            return state.categories.sort((a, b) => {
-                if (a.name < b.name) return -1
-                if (a.name > b.name) return 1;
-                return 0;
-            }).filter((category: Category) => category.active.toString() == '1');
         }
     }
 }

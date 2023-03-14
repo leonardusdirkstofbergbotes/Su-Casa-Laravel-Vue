@@ -10,7 +10,7 @@ export default {
 
         const name = ref<string | null>(null);
         const description = ref<string | null>(null);
-        const active = ref<boolean>(false);
+        const active = ref<boolean>(true);
         const activeUntil = ref<string | null>(null);
         const dailyCutoffTime = ref<string | null>(null);
         const promote = ref<boolean>(false);
@@ -37,7 +37,7 @@ export default {
         const resetForm = () => {
             name.value = null;
             description.value = null;
-            active.value = false;
+            active.value = true;
             activeUntil.value = null;
             dailyCutoffTime.value = null;
             promote.value = false;
