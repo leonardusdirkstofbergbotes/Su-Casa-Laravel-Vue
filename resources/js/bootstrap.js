@@ -23,6 +23,7 @@ import InputTime from './components/InputTime/InputTime.vue';
 import InputFile from './components/InputFile/InputFile.vue';
 import AlertBox from './components/AlertBox/AlertBox.vue';
 import Select from './components/Select/Select.vue';
+import TooltipIcon from './components/TooltipIcon/TooltipIcon.vue';
 
 // Vuetify
 import 'vuetify/styles'
@@ -30,6 +31,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import store from './store';
+
 
 
 
@@ -78,6 +80,7 @@ app.component('modal', Modal);
 app.component('toggle', Toggle);
 app.component('alert-box', AlertBox);
 app.component('input-select', Select);
+app.component('tooltip-icon', TooltipIcon);
 
 
 app.mount("#app");

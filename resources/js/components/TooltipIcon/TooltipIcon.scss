@@ -1,0 +1,11 @@
+@import 'resources/sass/variables';
+
+.tooltip-icon {
+    color: $primary-light;
+    margin-left: 0.5rem;
+
+    &:hover {
+        color: $primary;
+        cursor: pointer;
+    }
+}

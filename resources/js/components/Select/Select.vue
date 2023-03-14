@@ -4,9 +4,7 @@
             <slot></slot>
             <span class="indicator-required" v-if="required">*</span>
             <small class="indicator-optional" v-else>(optional)</small>
-            <div>
-                <v-icon icon="mdi-help-circle" class="help-icon" size="small"></v-icon>
-            </div>
+            <tooltip-icon v-if="tooltipText">{{ tooltipText }}</tooltip-icon>
         </label>
         <div class="select--wrapper">
             <div class="select" v-bind:class="{ error: error != '' }" @click="determinePosition($event.target)">

@@ -4,5 +4,5 @@
     </v-btn>
   </template>
 
-  <script scr="./Button.ts" />
+  <script src="./Button.ts" />
   <style lang="scss" src="./Button.scss" />

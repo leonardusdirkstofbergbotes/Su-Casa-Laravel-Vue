@@ -33,7 +33,7 @@ export default {
         tooltipText: String,
         modelValue: {
             type:  Object as PropType<String[]>
-        }
+        },
       },
 
       emits: ['update:modelValue'],

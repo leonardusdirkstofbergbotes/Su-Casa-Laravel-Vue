@@ -16,7 +16,7 @@
                     :error="errors.image"
                 ></input-file>
                 <vue-input v-model="name" :error="errors.name" required>Name</vue-input>
-                <input-select v-model="categoryIds" multiple :error="errors.categoryIds" required :options="categoryOptions">Categories</input-select>
+                <input-select v-model="categoryIds" multiple :error="errors.categoryIds" required :options="categoryOptions" tooltipText="Meals can be placed in 1 or more categories. Users will be able to see meals by filtering through categories.">Categories</input-select>
                 <vue-input
                     type="textarea"
                     rows="4"

@@ -4,6 +4,7 @@
             <slot></slot>
             <span class="indicator-required" v-if="required">*</span>
             <small class="indicator-optional" v-else>(optional)</small>
+            <tooltip-icon v-if="tooltipText">{{ tooltipText }}</tooltip-icon>
         </label>
         <input type="date" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
         <small class="error-message" v-if="error != ''">{{error}}</small>
