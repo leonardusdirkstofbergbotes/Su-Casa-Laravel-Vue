@@ -15,7 +15,7 @@
                         <v-icon icon="mdi-close" @click="removeItem(value)" size="small"></v-icon>
                     </span>
                 </div>
-                <span v-else class="placeholder"></span>
+                <span v-else class="placeholder"><!--TODO:--></span>
             </div>
             <div class="select-dropdown" ref="selectDropdown" :class="{ open: showDropdown }">
                 <span class="disabled" :innerText="'Select one' + (multiple ? ' or more' : '')"></span>

@@ -24,6 +24,9 @@ Route::prefix('auth')
 Route::prefix('categories')
     ->group(base_path('routes/categories.php'));
 
+Route::prefix('meals')
+    ->group(base_path('routes/meals.php'));
+
 
 
 Route::get('/test', function () {
