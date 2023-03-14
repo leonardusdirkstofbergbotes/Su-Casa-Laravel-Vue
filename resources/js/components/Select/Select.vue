@@ -1,12 +1,12 @@
 <template>
-    <div class="form-input" v-bind:class="{ disabled: disabled }" ref="selectWrapper">
+    <div class="form-input" v-bind:class="{ disabled: disabled }">
         <label>
             <slot></slot>
             <span class="indicator-required" v-if="required">*</span>
             <small class="indicator-optional" v-else>(optional)</small>
             <tooltip-icon v-if="tooltipText">{{ tooltipText }}</tooltip-icon>
         </label>
-        <div class="select--wrapper">
+        <div class="select--wrapper" ref="selectWrapper">
             <div class="select" v-bind:class="{ error: error != '' }" @click="determinePosition($event.target)">
                 <v-icon :icon="showDropdown ? 'mdi-chevron-up' : 'mdi-chevron-down'" class="select-icon" size="small"></v-icon>
                 <div v-if="multiple" class="pill--wrapper">
