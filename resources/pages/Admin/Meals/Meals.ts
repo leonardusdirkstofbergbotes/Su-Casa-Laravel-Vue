@@ -23,7 +23,7 @@ export default {
         const errors = ref<any[]>([]);
         const foodForm = ref();
         const tempFoodId = ref<string | null>(null);
-        const categoryIds = ref<string[]>(["3", "4"]);
+        const categoryIds = ref<string[]>([]);
 
         const categoryOptions = computed(() => {
             return [{
@@ -162,6 +162,14 @@ export default {
                     formattedErrors['activeUntil'] = 'This date cannot be in the past';
                     isFormValid = false;
                 }
+            }
+            if ((bulkBuyPortions.value != undefined || bulkBuyPortions.value != null) && (bulkBuyDiscount.value == undefined || bulkBuyDiscount.value == null)) {
+                formattedErrors['bulkBuyDiscount'] = 'Please enter the discount amount';
+                isFormValid = false;
+            }
+            if (categoryIds.value.length == 0) {
+                formattedErrors['categoryIds'] = 'Please pick at least 1 category';
+                isFormValid = false;
             }
 
             errors.value = formattedErrors;
