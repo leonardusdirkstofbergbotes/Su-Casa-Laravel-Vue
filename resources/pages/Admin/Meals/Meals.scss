@@ -12,14 +12,14 @@
     }
 }
 
-.categories {
+.meals {
     display: grid;
     grid-template-columns: 48% 48%;
     gap: 1rem;
     grid-row-gap: 2rem;
     margin-top: 2rem;
 
-    .category {
+    .meal {
         border-radius: $border-radius;
         background-color: white;
         border: 1px solid $light-grey;

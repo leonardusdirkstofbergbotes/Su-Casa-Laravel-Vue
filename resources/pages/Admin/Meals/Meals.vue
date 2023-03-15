@@ -54,23 +54,23 @@
                 <small v-on:click="closeForm()">Cancel</small>
             </template>
         </modal>
-        <div class="categories">
-            <div class="category" v-for="category in categories" :key="category.id">
-                <img :src="category.imagePath" />
+        <div class="meals">
+            <div class="meal" v-for="meal in meals" :key="meal.id">
+                <img :src="meal.imagePath" />
                 <div>
-                    <h4>{{ category.name }}</h4>
+                    <h4>{{ meal.name }}</h4>
                     <small>{{
-                        category.description +
+                        meal.description +
                         "fksldfjls djflsdjfl jslfj lksdjfl sdjlfj lskdjflksdjfkl jd fdsfsdf sdf sdf"
                     }}</small>
                 </div>
                 <div class="actions">
-                    <span @click="editMeal(category)">Edit</span>
+                    <span @click="editMeal(meal)">Edit</span>
                     <v-icon
                         class="delete"
                         size="x-large"
                         icon="mdi-delete"
-                        @click="deleteMeal(category.id)"
+                        @click="deleteMeal(meal.id)"
                     ></v-icon>
                 </div>
             </div>

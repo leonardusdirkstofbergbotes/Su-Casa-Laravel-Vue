@@ -21,7 +21,7 @@ export const mealsModule = {
         }
     },
     actions: {
-        fetchCategories ({commit}) {
+        fetchMeals ({commit}) {
             return new Promise((resolve, reject) => {
                 request('get', '/api/meals')
                     .then((response: any) => {
@@ -34,7 +34,7 @@ export const mealsModule = {
             });
         },
 
-        createCategory ({commit}, inputData) {
+        createMeal ({commit}, inputData) {
             return new Promise((resolve, reject) =>{
                 request('post', '/api/meals/create', inputData, {'Content-Type': 'multipart/form-data'})
                     .then((response: any) => {
@@ -49,20 +49,20 @@ export const mealsModule = {
 
         },
 
-        updateCategory ({state, commit}, {inputData, categoryId}) {
+        updateMeal ({state, commit}, {inputData, mealId}) {
             console.log('meal 2');
             return new Promise((resolve, reject) => {
-                request('post', `/api/meals/update/${categoryId}`, inputData)
+                request('post', `/api/meals/update/${mealId}`, inputData)
                     .then((response: any) => {
                         if (response.data.message == 'success') {
-                            const updatedCategory = response.data.meal;
+                            const updatedMeal = response.data.meal;
 
-                            const updatedCategoryRemoved = state.meals.filter((meal: Meal) => {
-                                return meal.id.toString() != updatedCategory.id.toString();
+                            const updatedMealRemoved = state.meals.filter((meal: Meal) => {
+                                return meal.id.toString() != updatedMeal.id.toString();
                             });
 
-                            updatedCategoryRemoved.push(updatedCategory);
-                            commit('setMeals', updatedCategoryRemoved);
+                            updatedMealRemoved.push(updatedMeal);
+                            commit('setMeals', updatedMealRemoved);
                             resolve(true);
                         }
                     })
@@ -73,7 +73,7 @@ export const mealsModule = {
             });
         },
 
-        deleteCategory ({commit}, id: string) {
+        deleteMeal ({commit}, id: string) {
             return new Promise((resolve, reject) => {
                 request('delete', `/api/meals/delete/${id}`)
                 .then(() => {

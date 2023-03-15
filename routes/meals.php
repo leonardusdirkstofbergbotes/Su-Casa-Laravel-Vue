@@ -2,12 +2,12 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', 'App\Http\Controllers\MealsController@getAll')->name('getAllMeals');
+Route::get('/', 'App\Http\Controllers\MealController@getAll')->name('getAllMeals');
 
-Route::post('/create', 'App\Http\Controllers\MealsController@create')->name('createMeal');
+Route::post('/create', 'App\Http\Controllers\MealController@create')->name('createMeal');
 
-Route::get('/get/{id}', 'App\Http\Controllers\MealsController@get')->name('getMeal');
+Route::get('/get/{id}', 'App\Http\Controllers\MealController@get')->name('getMeal');
 
-Route::post('/update/{id}', 'App\Http\Controllers\MealsController@update')->name('updateMeal');
+Route::post('/update/{id}', 'App\Http\Controllers\MealController@update')->name('updateMeal');
 
-Route::delete('/delete/{id}', 'App\Http\Controllers\MealsController@destroy')->name('deleteMeal');
+Route::delete('/delete/{id}', 'App\Http\Controllers\MealController@destroy')->name('deleteMeal');

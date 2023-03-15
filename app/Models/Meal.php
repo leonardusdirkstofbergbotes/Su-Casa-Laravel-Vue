@@ -20,7 +20,7 @@ class Meal extends Model
         'promote' => 'required|boolean',
         'price' => 'required|string',
         'bulkBuyPortions' => 'number',
-        'bulkBuyDiscount' => 'number'
+        'bulkBuyDiscount' => 'required_with:bulkBuyPortions|number'
     ];
 
     public function editRules () {

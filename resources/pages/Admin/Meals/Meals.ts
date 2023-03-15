@@ -26,6 +26,10 @@ export default {
         const tempMealId = ref<string | null>(null);
         const categoryIds = ref<string[]>([]);
 
+        const meals = computed(() => {
+            return store.getters['getMeals'];
+        });
+
         const activeCategories = computed(() => {
             return store.getters['getActiveCategories'];
         });
@@ -208,11 +212,12 @@ export default {
 
         // TODO:
         onMounted(() => {
-            store.dispatch('fetchMeals');
             store.dispatch('fetchCategories');
+            store.dispatch('fetchMeals');
         });
 
         return {
+            meals,
             categoryOptions,
             name,
             description,
