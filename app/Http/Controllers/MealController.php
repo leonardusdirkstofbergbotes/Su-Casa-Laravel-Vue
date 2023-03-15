@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
+use App\Models\MealCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -51,6 +52,16 @@ class MealController extends Controller
         }
         else {
 
+            $categoryIds = json_decode($request->categoryIds, true);
+
+            if (empty($categoryIds)) {
+                return response()->json([
+                    'status' => false,
+                    'type' => 'validation error',
+                    'error' => ['categoryIds' => "Make sure to select at least 1 category"]
+                ], 400);
+            }
+
             try {
                 $fileName = $request->image->getClientOriginalName();
                 $request->image->move(public_path($this->defaultSavingPath), $fileName);
@@ -63,10 +74,26 @@ class MealController extends Controller
 
                 try {
                     $newMeal = Meal::create($dataToSave);
+
+                    $categoryDataToInsert = [];
+
+                    foreach($categoryIds as $category) {
+                        $data = [
+                            'mealId' => $newMeal->id,
+                            'categoryId' => $category
+                        ];
+
+                        $categoryDataToInsert[] = $data;
+                    }
+
+                    MealCategory::insert($categoryDataToInsert);
+
+                    $newMeal['categoryIds'] = $categoryIds;
+
                     return response()->json([
                         'status' => true,
                         'message' => 'success',
-                        'meal' => $newMeal,
+                        'meal' => $newMeal
                     ], 200);
                 }
                 catch(\Exception $e) {

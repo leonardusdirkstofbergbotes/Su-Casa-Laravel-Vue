@@ -206,6 +206,7 @@ export default {
             const formData = new FormData();
             formData.append('image', image.value as Blob);
             formData.append('formData', JSON.stringify(data));
+            formData.append('categoryIds', JSON.stringify(categoryIds.value));
 
             return formData;
         };

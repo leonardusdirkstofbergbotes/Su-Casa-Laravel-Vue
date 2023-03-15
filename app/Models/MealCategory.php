@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class MealCategory extends Model
 {
     use HasFactory;
+
+    protected $table = 'meal_categories';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+
+    public $rules = [
+        'mealId' => 'required|integer',
+        'categoryId' => 'required|integer'
+    ];
 }
