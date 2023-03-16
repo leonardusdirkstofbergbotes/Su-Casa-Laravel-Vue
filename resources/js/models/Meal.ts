@@ -1,4 +1,4 @@
-export default interface Food {
+export default interface Meal {
     id: string,
     name: string;
     description: string;
@@ -11,4 +11,5 @@ export default interface Food {
     bulkBuyDiscount: number | null;
     bulkBuyPortions: number | null;
     imagePath: string;
+    category_ids: string[]
 };

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Meal extends Model
 {
@@ -19,8 +20,8 @@ class Meal extends Model
         'active' => 'required|boolean',
         'promote' => 'required|boolean',
         'price' => 'required|string',
-        'bulkBuyPortions' => 'integer',
-        'bulkBuyDiscount' => 'required_with:bulkBuyPortions|integer'
+        'bulkBuyPortions' => 'nullable|integer',
+        'bulkBuyDiscount' => 'nullable|required_with:bulkBuyPortions|integer'
     ];
 
     public function editRules () {
@@ -28,5 +29,9 @@ class Meal extends Model
             ...$this->rules,
             'name' => 'required|max:255|string',
         ];
+    }
+
+    public function categoryIds(): HasMany {
+        return $this->hasMany(MealCategory::class, 'mealId');
     }
 }

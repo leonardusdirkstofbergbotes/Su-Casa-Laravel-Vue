@@ -56,13 +56,40 @@
         </modal>
         <div class="meals">
             <div class="meal" v-for="meal in meals" :key="meal.id">
-                <img :src="meal.imagePath" />
+                <div class="avatar">
+                    <img :src="meal.imagePath" />
+                </div>
                 <div>
                     <h4>{{ meal.name }}</h4>
+                    <strong>R {{ meal.price }}</strong>
                     <small>{{
                         meal.description +
                         "fksldfjls djflsdjfl jslfj lksdjfl sdjlfj lskdjflksdjfkl jd fdsfsdf sdf sdf"
                     }}</small>
+                    <span class="meal-details">
+                        <div v-if="meal.eta">
+                            <v-icon
+                                icon="mdi-clock"
+                            ></v-icon>
+                            <small>{{meal.eta}}</small>
+                            <v-tooltip activator="parent" location="top">
+                                This is an estimate of how long the meal will take to prepare
+                            </v-tooltip>
+                        </div>
+                        <div v-if="meal.bulkBuyDiscount">
+                            <v-icon
+                                icon="mdi-sale"
+                            ></v-icon>
+                            <small>{{meal.bulkBuyPortions}} / {{ meal.bulkBuyDiscount }}</small>
+                            <v-tooltip activator="parent" location="top">
+                                When you buy {{meal.bulkBuyPortions}} portions then you get a {{ meal.bulkBuyDiscount }}% discount
+                            </v-tooltip>
+                        </div>
+                        <div class="small" v-if="meal.activeUntil">
+                            <span>Promoted</span>
+                            <small>{{meal.activeUntil}}</small>
+                        </div>
+                    </span>
                 </div>
                 <div class="actions">
                     <span @click="editMeal(meal)">Edit</span>

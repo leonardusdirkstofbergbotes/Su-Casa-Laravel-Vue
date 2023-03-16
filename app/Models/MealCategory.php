@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MealCategory extends Model
 {
@@ -17,4 +19,12 @@ class MealCategory extends Model
         'mealId' => 'required|integer',
         'categoryId' => 'required|integer'
     ];
+
+    public function meal(): BelongsTo {
+        return $this->belongsTo(Meal::class, 'mealId');
+    }
+
+    public function categories(): HasMany {
+        return $this->hasMany(Category::class, 'categoryId');
+    }
 }

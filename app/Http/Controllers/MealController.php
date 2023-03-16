@@ -22,7 +22,16 @@ class MealController extends Controller
      */
     public function getAll()
     {
-        return Meal::all();
+        $meals = Meal::with('categoryIds')->get();
+
+        $formattedData = [];
+        foreach($meals as $meal) {
+            $categoryIds = $meal->categoryIds->pluck(['categoryId']);
+
+            $formattedData[] = [...$meal->toArray(), 'category_ids' => $categoryIds];
+        }
+
+        return response()->json($formattedData);
     }
 
     /**
@@ -30,7 +39,10 @@ class MealController extends Controller
      */
     public function get(string $id)
     {
-        return response()->json(Meal::where('id', $id)->first(), 200);
+        $meal = Meal::with('categoryIds')->where('id', $id)->first();
+        $categoryIds = $meal->categoryIds->pluck(['categoryId']);
+
+        return response()->json([...$meal->toArray(), 'category_ids' => $categoryIds], 200);
     }
 
     /**
@@ -75,20 +87,9 @@ class MealController extends Controller
                 try {
                     $newMeal = Meal::create($dataToSave);
 
-                    $categoryDataToInsert = [];
+                    $this->addCategoriesToMeal($newMeal->id, $categoryIds);
 
-                    foreach($categoryIds as $category) {
-                        $data = [
-                            'mealId' => $newMeal->id,
-                            'categoryId' => $category
-                        ];
-
-                        $categoryDataToInsert[] = $data;
-                    }
-
-                    MealCategory::insert($categoryDataToInsert);
-
-                    $newMeal['categoryIds'] = $categoryIds;
+                    $newMeal['category_ids'] = $categoryIds;
 
                     return response()->json([
                         'status' => true,
@@ -143,7 +144,7 @@ class MealController extends Controller
         }
         else {
             try {
-                $meal = Meal::where('id', $id)->first();
+                $meal = Meal::with('categoryIds')->where('id', $id)->first();
                 $dataToSave = [
                     ...$formInputs
                 ];
@@ -168,11 +169,26 @@ class MealController extends Controller
                 }
 
                 $meal->update($dataToSave);
+                $newCategoryIds = json_decode($request->categoryIds, true);
+                $originalCategoryIds = $meal->categoryIds->pluck(['categoryId']);
+
+                $updateCategories = false;
+                foreach($newCategoryIds as $categoryId) {
+                    if (!in_array($categoryId, $originalCategoryIds->toArray())) {
+                        $updateCategories = true;
+                        break;
+                    }
+                }
+
+                if ($updateCategories) {
+                    MealCategory::query()->where('mealId', $meal->id)->delete();
+                    $this->addCategoriesToMeal($meal->id, $newCategoryIds);
+                }
 
                 return response()->json([
                     'status' => true,
                     'message' => 'success',
-                    'meal' => $meal
+                    'meal' => [...$meal->toArray(), 'category_ids' => $newCategoryIds]
                 ], 200);
             }
             catch(\Exception $e) {
@@ -192,6 +208,23 @@ class MealController extends Controller
     {
         $mealToDelete = Meal::find($id);
         File::delete(public_path($mealToDelete->imagePath));
+        MealCategory::query()->where('mealId', $id)->delete();
         return response()->json($mealToDelete->delete(), 200);
+    }
+
+
+    public function addCategoriesToMeal ($mealId, $categoryIds) {
+        $categoryDataToInsert = [];
+
+        foreach($categoryIds as $category) {
+            $data = [
+                'mealId' => $mealId,
+                'categoryId' => $category
+            ];
+
+            $categoryDataToInsert[] = $data;
+        }
+
+        MealCategory::insert($categoryDataToInsert);
     }
 }

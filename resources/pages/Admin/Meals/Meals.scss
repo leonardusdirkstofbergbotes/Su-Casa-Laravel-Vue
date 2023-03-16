@@ -21,17 +21,32 @@
 
     .meal {
         border-radius: $border-radius;
+        box-shadow: $shadow-medium;
         background-color: white;
-        border: 1px solid $light-grey;
         position: relative;
+        padding: 0.5rem;
+        padding-top: 4.5rem;
+        margin-top: 2rem;
 
-        img {
-            width: 100%;
-            height: 8rem;
-            border-top-left-radius: $border-radius;
-            border-top-right-radius: $border-radius;
-            object-fit: cover;
-            object-position: center;
+        .avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -3rem;
+            width: 7rem;
+            height: 7rem;
+            background-color: white;
+            border-radius: 100%;
+            left: 16%;
+            box-shadow: $shadow-small;
+
+            img {
+                width: 90%;
+                height: 90%;
+                object-fit: contain;
+                object-position: center;
+            }
         }
 
         small {
@@ -46,6 +61,28 @@
         div:first-of-type {
             padding: 0 0.5rem;
             padding-bottom: 0.5rem;
+        }
+
+        &-details {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-top: 1rem;
+
+            & > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+
+                small {
+                    margin-top: 0.2rem;
+                }
+            }
+
+            .small {
+                font-size: 0.7rem;
+            }
         }
 
         .actions {

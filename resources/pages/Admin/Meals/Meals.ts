@@ -1,6 +1,6 @@
 import { useStore } from 'vuex';
 import { computed, ref, watch, onMounted } from 'vue';
-import Food from '../../../js/models/Meal';
+import Meal from '../../../js/models/Meal';
 import Category from '../../../js/models/Category';
 
 export default {
@@ -78,20 +78,21 @@ export default {
             ;
         };
 
-        const editMeal = (food: Food) => {
-            name.value = food.name;
-            description.value = food.description;
-            active.value = food.active;
-            activeUntil.value = food.activeUntil;
-            dailyCutoffTime.value = food.dailyCutoffTime;
-            promote.value = food.promote;
-            imagePath.value = food.imagePath;
-            eta. value = food.eta;
-            price. value = food.price;
-            bulkBuyDiscount. value = food.bulkBuyDiscount;
-            bulkBuyPortions. value = food.bulkBuyPortions;
+        const editMeal = (meal: Meal) => {
+            name.value = meal.name;
+            description.value = meal.description;
+            active.value = meal.active;
+            activeUntil.value = meal.activeUntil;
+            dailyCutoffTime.value = meal.dailyCutoffTime;
+            promote.value = meal.promote;
+            imagePath.value = meal.imagePath;
+            eta. value = meal.eta;
+            price. value = meal.price;
+            bulkBuyDiscount. value = meal.bulkBuyDiscount;
+            bulkBuyPortions. value = meal.bulkBuyPortions;
+            categoryIds.value = meal.category_ids;
 
-            tempMealId.value = food.id.toString();
+            tempMealId.value = meal.id.toString();
             openForm();
         };
 
@@ -128,7 +129,7 @@ export default {
             if (validateForm()) {
                 const formData = getInputData();
 
-                store.dispatch('updateMeal', {inputData: formData, categoryId: tempMealId.value})
+                store.dispatch('updateMeal', {inputData: formData, mealId: tempMealId.value})
                     .then(() => {
                         store.dispatch('showSuccess', 'Meal has been updated successfully');
                         closeForm();

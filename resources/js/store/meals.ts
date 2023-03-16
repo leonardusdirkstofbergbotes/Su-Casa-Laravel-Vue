@@ -50,7 +50,6 @@ export const mealsModule = {
         },
 
         updateMeal ({state, commit}, {inputData, mealId}) {
-            console.log('meal 2');
             return new Promise((resolve, reject) => {
                 request('post', `/api/meals/update/${mealId}`, inputData)
                     .then((response: any) => {
